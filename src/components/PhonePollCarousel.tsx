@@ -8,6 +8,7 @@ import {
   MessageSquare,
 } from 'lucide-react';
 import { getPopularPolls } from '../lib/api';
+import { POLL_MOCKS } from '../lib/pollMocks';
 import type { Poll, PollScope } from '../types/poll';
 
 const TABS: { id: PollScope; label: string; icon: typeof Globe }[] = [
@@ -86,41 +87,26 @@ function SlideSkeleton() {
   );
 }
 
-function EmptyState() {
-  return (
-    <div className="bg-white/[0.02] rounded-xl p-4 border border-white/5 text-center">
-      <p className="text-white/80 text-sm font-medium mb-1">
-        Em breve
-      </p>
-      <p className="text-gray-500 text-xs">
-        Enquetes populares aparecem aqui assim que a comunidade começa a votar.
-      </p>
-    </div>
-  );
-}
-
 export default function PhonePollCarousel() {
   const [activeScope, setActiveScope] = useState<PollScope>('internacional');
-  const [polls, setPolls] = useState<Poll[]>([]);
+  const [polls, setPolls] = useState<Poll[]>(() => POLL_MOCKS.internacional);
   const [loading, setLoading] = useState(true);
-  const [errored, setErrored] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
-    setErrored(false);
     setActiveIndex(0);
 
     getPopularPolls(activeScope, 3, controller.signal)
       .then((result) => {
-        setPolls(result);
+        if (controller.signal.aborted) return;
+        setPolls(result.length > 0 ? result : POLL_MOCKS[activeScope]);
       })
       .catch((err) => {
         if (err?.name === 'AbortError') return;
-        setPolls([]);
-        setErrored(true);
+        setPolls(POLL_MOCKS[activeScope]);
       })
       .finally(() => {
         if (!controller.signal.aborted) {
@@ -190,10 +176,8 @@ export default function PhonePollCarousel() {
 
         <div className="flex-1 p-3 flex flex-col">
           <div className="relative flex-1">
-            {loading ? (
+            {loading || slideCount === 0 ? (
               <SlideSkeleton />
-            ) : slideCount === 0 || errored ? (
-              <EmptyState />
             ) : (
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
