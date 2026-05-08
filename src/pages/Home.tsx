@@ -12,12 +12,16 @@ import {
   Apple,
   Smartphone,
   ThumbsUp,
-  ThumbsDown,
   BarChart3,
-  Bell,
   Sparkles,
 } from 'lucide-react';
-import { Button, ScopeCard, FeatureCard, StatsCounter } from '../components';
+import {
+  Button,
+  ScopeCard,
+  FeatureCard,
+  StatsCounter,
+  PhonePollCarousel,
+} from '../components';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -107,61 +111,7 @@ export default function Home() {
               className="relative max-w-4xl mx-auto"
             >
               <div className="relative">
-                {/* Phone mockup */}
-                <div className="relative mx-auto w-[280px] sm:w-[320px] h-[580px] sm:h-[640px] bg-black rounded-[3rem] border-2 border-white/10 shadow-2xl overflow-hidden">
-                  {/* Notch */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-2xl z-10" />
-                  
-                  {/* Screen content */}
-                  <div className="absolute inset-2 rounded-[2.5rem] bg-black overflow-hidden border border-white/5">
-                    {/* App header */}
-                    <div className="bg-black/80 p-4 flex items-center justify-between border-b border-white/5">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
-                          <span className="text-black font-bold text-sm">K</span>
-                        </div>
-                        <span className="text-white font-semibold">Kratikos</span>
-                      </div>
-                      <Bell size={20} className="text-gray-500" />
-                    </div>
-                    
-                    {/* Tabs */}
-                    <div className="flex border-b border-white/5">
-                      <div className="flex-1 py-3 text-center text-white border-b-2 border-white text-sm font-medium">
-                        <Globe size={16} className="inline mr-1" /> Internacional
-                      </div>
-                      <div className="flex-1 py-3 text-center text-gray-600 text-sm">
-                        <Flag size={16} className="inline mr-1" /> Nacional
-                      </div>
-                      <div className="flex-1 py-3 text-center text-gray-600 text-sm">
-                        <MapPin size={16} className="inline mr-1" /> Regional
-                      </div>
-                    </div>
-                    
-                    {/* Posts */}
-                    <div className="p-3 space-y-3">
-                      {[
-                        { title: 'COP30: Brasil sediará conferência climática', votes: 847 },
-                        { title: 'Novo acordo de paz no Oriente Médio', votes: 1234 },
-                      ].map((post, i) => (
-                        <div key={i} className="bg-white/[0.02] rounded-xl p-3 border border-white/5">
-                          <p className="text-white text-sm font-medium mb-3">{post.title}</p>
-                          <div className="flex items-center gap-2">
-                            <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white text-black text-xs font-medium">
-                              <ThumbsUp size={12} /> {post.votes}
-                            </button>
-                            <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white/5 text-gray-500 text-xs">
-                              <ThumbsDown size={12} />
-                            </button>
-                            <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white/5 text-gray-500 text-xs ml-auto">
-                              <MessageSquare size={12} /> 45
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <PhonePollCarousel />
 
                 {/* Floating badges */}
                 <motion.div
