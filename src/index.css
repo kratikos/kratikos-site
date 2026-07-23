@@ -1,5 +1,5 @@
 /* Custom fonts - must be first */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @import "tailwindcss";
 
@@ -14,8 +14,8 @@
   --color-surface: #0A0A0A;
   --color-surface-light: #141414;
   --color-border: #1F1F1F;
-  --font-heading: 'Sora', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'League Spartan', sans-serif;
+  --font-body: 'League Spartan', sans-serif;
 }
 
 /* Base styles */

@@ -156,8 +156,8 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
     >
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-2xl z-10" />
 
-      <div className="absolute inset-2 rounded-[2.5rem] bg-black overflow-hidden border border-white/5 flex flex-col">
-        <div className="bg-black/80 p-4 flex items-center justify-between border-b border-white/5">
+      <div className="absolute inset-2 rounded-[2.5rem] bg-[#1d1d1d] overflow-hidden border border-white/5 flex flex-col">
+        <div className="p-4 pt-8 flex items-center justify-between">
           <div className="flex items-center">
             <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-5 w-auto" />
           </div>
@@ -173,13 +173,13 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveScope(tab.id)}
-                className={`flex-1 py-3 text-center text-sm transition-colors ${
+                className={`flex-1 py-3 px-2 text-center text-sm transition-colors ${
                   isActive
-                    ? 'text-white border-b-2 border-white font-medium'
-                    : 'text-gray-600 hover:text-gray-400'
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-gray-600 border-b-2 border-transparent hover:text-gray-400'
                 }`}
               >
-                <Icon size={16} className="inline mr-1" /> {tab.label}
+                <Icon size={16} className="inline mr-1" /><br /> {tab.label}
               </button>
             );
           })}
