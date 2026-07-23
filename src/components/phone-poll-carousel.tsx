@@ -89,14 +89,22 @@ function SlideSkeleton() {
   );
 }
 
-export default function PhonePollCarousel() {
+export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls?: Partial<Record<PollScope, Poll[]>> } = {}) {
   const [activeScope, setActiveScope] = useState<PollScope>('internacional');
-  const [polls, setPolls] = useState<Poll[]>(() => POLL_MOCKS.internacional);
-  const [loading, setLoading] = useState(true);
+  const cachedPolls = useRef<Partial<Record<PollScope, Poll[]>>>(prefetchedPolls || {});
+  const [polls, setPolls] = useState<Poll[]>(() => cachedPolls.current['internacional'] || POLL_MOCKS.internacional);
+  const [loading, setLoading] = useState(!cachedPolls.current['internacional']);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    if (cachedPolls.current[activeScope]) {
+      setPolls(cachedPolls.current[activeScope]!);
+      setLoading(false);
+      setActiveIndex(0);
+      return;
+    }
+
     const controller = new AbortController();
     setLoading(true);
     setActiveIndex(0);
@@ -104,11 +112,15 @@ export default function PhonePollCarousel() {
     getPopularPolls(activeScope, 3, controller.signal)
       .then((result) => {
         if (controller.signal.aborted) return;
-        setPolls(result.length > 0 ? result : POLL_MOCKS[activeScope]);
+        const data = result.length > 0 ? result : POLL_MOCKS[activeScope];
+        cachedPolls.current[activeScope] = data;
+        setPolls(data);
       })
       .catch((err) => {
         if (err?.name === 'AbortError') return;
-        setPolls(POLL_MOCKS[activeScope]);
+        const data = POLL_MOCKS[activeScope];
+        cachedPolls.current[activeScope] = data;
+        setPolls(data);
       })
       .finally(() => {
         if (!controller.signal.aborted) {

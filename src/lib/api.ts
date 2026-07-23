@@ -16,7 +16,7 @@ export async function getPopularPolls(
   const response = await fetch(`${API_URL}/polls/popular?${params.toString()}`, {
     headers: { Accept: 'application/json' },
     signal,
-    next: { revalidate: 60 } // Cache for 60 seconds
+    next: { revalidate: 600 } // Cache for 10 minutes
   });
 
   if (!response.ok) {
