@@ -1,7 +1,7 @@
 import type { Poll, PollScope, PopularPollsResponse } from '../types/poll';
 
 const API_URL =
-  import.meta.env.VITE_API_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
   'https://kratikos-dev-backend-development.up.railway.app';
 
 export async function getPopularPolls(
@@ -16,6 +16,7 @@ export async function getPopularPolls(
   const response = await fetch(`${API_URL}/polls/popular?${params.toString()}`, {
     headers: { Accept: 'application/json' },
     signal,
+    next: { revalidate: 60 } // Cache for 60 seconds
   });
 
   if (!response.ok) {

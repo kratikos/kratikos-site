@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import {
   Target,
@@ -9,8 +11,8 @@ import {
   Award,
   ArrowRight,
 } from 'lucide-react';
-import { Button } from '../components';
-import { Link } from 'react-router-dom';
+import { Button } from "@/components";
+import Link from "next/link";
 
 const values = [
   {
@@ -59,8 +61,10 @@ const milestones = [
 ];
 
 export default function About() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   return (
-    <main className="pt-24">
+    <main className="pt-24" key={mounted ? "client" : "server"}>
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">
@@ -294,7 +298,7 @@ export default function About() {
                 Baixar App
               </Button>
               <Link
-                to="/contato"
+                href="/contato"
                 className="text-gray-500 hover:text-white transition-colors flex items-center gap-2"
               >
                 Entre em contato <ArrowRight size={16} />

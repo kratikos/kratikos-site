@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -8,7 +10,7 @@ import {
   MessageSquare,
 } from 'lucide-react';
 import { getPopularPolls } from '../lib/api';
-import { POLL_MOCKS } from '../lib/pollMocks';
+import { POLL_MOCKS } from '../lib/poll-mocks';
 import type { Poll, PollScope } from '../types/poll';
 
 const TABS: { id: PollScope; label: string; icon: typeof Globe }[] = [

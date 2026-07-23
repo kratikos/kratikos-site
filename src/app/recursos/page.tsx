@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import {
   Vote,
@@ -18,7 +20,7 @@ import {
   ThumbsDown,
   SkipForward,
 } from 'lucide-react';
-import { FeatureCard } from '../components';
+import { FeatureCard } from "@/components";
 
 const mainFeatures = [
   {
@@ -101,8 +103,10 @@ const additionalFeatures = [
 ];
 
 export default function Features() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   return (
-    <main className="pt-24">
+    <main className="pt-24" key={mounted ? "client" : "server"}>
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">

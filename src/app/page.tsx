@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import {
   Globe,
@@ -21,7 +23,7 @@ import {
   FeatureCard,
   StatsCounter,
   PhonePollCarousel,
-} from '../components';
+} from "@/components";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -37,9 +39,13 @@ const stagger = {
   },
 };
 
+
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-hidden" key={mounted ? "client" : "server"}>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20">
         {/* Background elements */}

@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import {
   Download,
@@ -11,7 +13,7 @@ import {
   Smartphone,
   CheckCircle2,
 } from 'lucide-react';
-import { Button } from '../components';
+import { Button } from "@/components";
 
 const steps = [
   {
@@ -93,8 +95,10 @@ const faq = [
 ];
 
 export default function HowItWorks() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   return (
-    <main className="pt-24">
+    <main className="pt-24" key={mounted ? "client" : "server"}>
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">

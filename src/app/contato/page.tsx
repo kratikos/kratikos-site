@@ -1,4 +1,5 @@
-import { useState } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import {
   Mail,
@@ -11,7 +12,7 @@ import {
   Linkedin,
   Github,
 } from 'lucide-react';
-import { Button } from '../components';
+import { Button } from "@/components";
 
 const contactInfo = [
   {
@@ -42,6 +43,8 @@ const socialLinks = [
 ];
 
 export default function Contact() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -76,7 +79,7 @@ export default function Contact() {
   };
 
   return (
-    <main className="pt-24">
+    <main className="pt-24" key={mounted ? "client" : "server"}>
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">

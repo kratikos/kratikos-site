@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Github, Twitter, Instagram, Linkedin, Heart } from 'lucide-react';
 
 const footerLinks = {
@@ -33,7 +33,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-4">
+            <Link href="/" className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
                 <span className="text-black font-bold text-xl">K</span>
               </div>
@@ -63,7 +63,7 @@ export default function Footer() {
               {footerLinks.produto.map((link) => (
                 <li key={link.name}>
                   <Link
-                    to={link.path}
+                    href={link.path}
                     className="text-gray-500 hover:text-white text-sm transition-colors"
                   >
                     {link.name}
@@ -79,7 +79,7 @@ export default function Footer() {
               {footerLinks.empresa.map((link) => (
                 <li key={link.name}>
                   <Link
-                    to={link.path}
+                    href={link.path}
                     className="text-gray-500 hover:text-white text-sm transition-colors"
                   >
                     {link.name}
@@ -95,7 +95,7 @@ export default function Footer() {
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
-                    to={link.path}
+                    href={link.path}
                     className="text-gray-500 hover:text-white text-sm transition-colors"
                   >
                     {link.name}

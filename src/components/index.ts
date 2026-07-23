@@ -1,7 +1,7 @@
-export { default as Header } from './Header';
-export { default as Footer } from './Footer';
-export { default as Button } from './Button';
-export { default as FeatureCard } from './FeatureCard';
-export { default as ScopeCard } from './ScopeCard';
-export { default as StatsCounter } from './StatsCounter';
-export { default as PhonePollCarousel } from './PhonePollCarousel';
+export { default as Button } from './button';
+export { default as FeatureCard } from './feature-card';
+export { default as Footer } from './footer';
+export { default as Header } from './header';
+export { default as PhonePollCarousel } from './phone-poll-carousel';
+export { default as ScopeCard } from './scope-card';
+export { default as StatsCounter } from './stats-counter';
