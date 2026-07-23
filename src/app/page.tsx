@@ -95,7 +95,7 @@ export default function Home() {
                 variant="primary"
                 size="lg"
                 href="#download"
-                icon={<Apple size={20} />}
+                icon={<img src="/stores/appstore-icon.svg" alt="App Store" className="h-5 w-auto" />}
                 iconPosition="left"
               >
                 App Store
@@ -104,7 +104,7 @@ export default function Home() {
                 variant="outline"
                 size="lg"
                 href="#download"
-                icon={<Smartphone size={20} />}
+                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" className="h-5 w-auto" />}
                 iconPosition="left"
               >
                 Google Play
@@ -309,7 +309,7 @@ export default function Home() {
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<Apple size={24} />}
+                icon={<img src="/stores/appstore-icon.svg" alt="App Store" className="h-6 w-auto" />}
                 iconPosition="left"
               >
                 <div className="text-left">
@@ -321,7 +321,7 @@ export default function Home() {
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<Smartphone size={24} />}
+                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" className="h-6 w-auto" />}
                 iconPosition="left"
               >
                 <div className="text-left">

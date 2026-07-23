@@ -197,7 +197,7 @@ export default function HowItWorks() {
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<Apple size={24} />}
+                icon={<img src="/stores/appstore-icon.svg" alt="App Store" className="h-6 w-auto" />}
                 iconPosition="left"
               >
                 App Store
@@ -206,7 +206,7 @@ export default function HowItWorks() {
                 variant="outline"
                 size="lg"
                 href="#"
-                icon={<Smartphone size={24} />}
+                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" className="h-6 w-auto" />}
                 iconPosition="left"
               >
                 Google Play

@@ -35,10 +35,31 @@ function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string
     });
   }, [display]);
 
+  const getMobileDisplay = (val: number) => {
+    let formatted = '';
+    if (val >= 1000000) {
+      formatted = (val / 1000000).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + 'M';
+    } else if (val >= 1000) {
+      formatted = Math.floor(val / 1000) + 'k';
+    } else {
+      formatted = val.toString();
+    }
+    
+    if (suffix === '+') {
+      return `+${formatted}`;
+    }
+    return `${formatted}${suffix}`;
+  };
+
   return (
     <span ref={ref}>
-      {displayValue.toLocaleString('pt-BR')}
-      {suffix}
+      <span className="hidden md:inline">
+        {displayValue.toLocaleString('pt-BR')}
+        {suffix}
+      </span>
+      <span className="md:hidden">
+        {getMobileDisplay(displayValue)}
+      </span>
     </span>
   );
 }
