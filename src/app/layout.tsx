@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     title: 'Kratikos - Engajamento Democrático',
     description: 'Plataforma de engajamento democrático. Participe de discussões políticas e sociais.',
   },
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({

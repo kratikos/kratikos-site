@@ -105,10 +105,9 @@ export default function About() {
             >
               <div className="aspect-square rounded-3xl bg-white/[0.02] border border-white/5 flex items-center justify-center">
                 <div className="text-center p-8">
-                  <div className="w-24 h-24 mx-auto rounded-3xl bg-white flex items-center justify-center mb-6">
-                    <span className="text-black text-5xl font-bold">K</span>
+                  <div className="mx-auto mb-8 flex justify-center">
+                    <img src="/visual-identity/logo-vertical-light.svg" alt="Kratikos Logo" className="h-32 w-auto" />
                   </div>
-                  <p className="text-2xl font-bold text-white mb-2">Kratikos</p>
                   <p className="text-gray-500">
                     Do grego "κρατικός"
                     <br />

@@ -33,11 +33,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
-                <span className="text-black font-bold text-xl">K</span>
-              </div>
-              <span className="text-xl font-bold text-white">Kratikos</span>
+            <Link href="/" className="inline-block mb-6 hover:opacity-80 transition-opacity">
+              <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-8 w-auto" />
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs">
               Plataforma de engajamento democrático. Conectando cidadãos para discussões que importam.

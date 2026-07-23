@@ -40,17 +40,13 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center group">
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
-              className="w-10 h-10 rounded-xl bg-white flex items-center justify-center"
             >
-              <span className="text-black font-bold text-xl">K</span>
+              <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-8 w-auto group-hover:opacity-80 transition-opacity" />
             </motion.div>
-            <span className="text-xl font-bold text-white group-hover:opacity-80 transition-opacity">
-              Kratikos
-            </span>
           </Link>
 
           {/* Desktop Navigation */}

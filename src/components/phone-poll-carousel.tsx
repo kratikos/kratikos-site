@@ -146,11 +146,8 @@ export default function PhonePollCarousel() {
 
       <div className="absolute inset-2 rounded-[2.5rem] bg-black overflow-hidden border border-white/5 flex flex-col">
         <div className="bg-black/80 p-4 flex items-center justify-between border-b border-white/5">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
-              <span className="text-black font-bold text-sm">K</span>
-            </div>
-            <span className="text-white font-semibold">Kratikos</span>
+          <div className="flex items-center">
+            <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-5 w-auto" />
           </div>
           <Bell size={20} className="text-gray-500" />
         </div>
