@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useReducedMotion, AnimatePresence, motion } from 'framer-motion';
 import {
   Bell,
   Flag,
@@ -48,11 +48,11 @@ function PollSlide({ poll }: { poll: Poll }) {
             <div key={option.id} className="space-y-1">
               <div className="flex items-center justify-between text-xs">
                 <span className="text-white/90 truncate pr-2">{option.content}</span>
-                <span className="text-gray-400 tabular-nums">{percentage}%</span>
+                <span className="text-gray-300 tabular-nums font-medium">{percentage}%</span>
               </div>
-              <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
                 <div
-                  className="h-full bg-white/80 rounded-full transition-all"
+                  className="h-full bg-white/90 rounded-full transition-all"
                   style={{ width: `${percentage}%` }}
                 />
               </div>
@@ -61,8 +61,8 @@ function PollSlide({ poll }: { poll: Poll }) {
         })}
       </div>
 
-      <div className="flex items-center gap-3 text-xs text-gray-500">
-        <span className="tabular-nums">{formatCount(totalVotes)} votos</span>
+      <div className="flex items-center gap-3 text-xs text-gray-400">
+        <span className="tabular-nums font-medium">{formatCount(totalVotes)} votos</span>
         <span className="flex items-center gap-1 ml-auto">
           <MessageSquare size={12} />
           {formatCount(poll.post?.commentsCount ?? 0)}
@@ -96,6 +96,7 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
   const [loading, setLoading] = useState(!cachedPolls.current['internacional']);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (cachedPolls.current[activeScope]) {
@@ -132,7 +133,7 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
   }, [activeScope]);
 
   const slideCount = polls.length;
-  const shouldRotate = !loading && !isHovering && slideCount > 1;
+  const shouldRotate = !shouldReduceMotion && !loading && !isHovering && slideCount > 1;
 
   useEffect(() => {
     if (!shouldRotate) return;
@@ -177,7 +178,7 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
                 aria-controls={`panel-${tab.id}`}
                 id={`tab-${tab.id}`}
                 onClick={() => setActiveScope(tab.id)}
-                className={`flex-1 py-3 px-2 text-center text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-white/50 ${
+                className={`min-h-[44px] flex-1 py-2 px-2 text-center text-xs sm:text-sm font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 ${
                   isActive
                     ? 'text-white border-b-2 border-white'
                     : 'text-gray-400 border-b-2 border-transparent hover:text-gray-200'
@@ -197,10 +198,10 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={polls[activeIndex]?.id ?? activeIndex}
-                  initial={{ opacity: 0, x: 24 * directionRef.current }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -24 * directionRef.current }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 24 * directionRef.current }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -24 * directionRef.current }}
+                  transition={{ duration: shouldReduceMotion ? 0.1 : 0.35, ease: 'easeOut' }}
                 >
                   <PollSlide poll={polls[activeIndex]} />
                 </motion.div>
@@ -216,7 +217,7 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
                   type="button"
                   aria-label={`Ir para enquete ${index + 1}`}
                   onClick={() => handleDotClick(index)}
-                  className="p-2 group focus:outline-none"
+                  className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-lg"
                 >
                   <span className={`block h-1.5 rounded-full transition-all ${
                     index === activeIndex

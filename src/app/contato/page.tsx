@@ -36,10 +36,10 @@ const contactInfo = [
 ];
 
 const socialLinks = [
-  { icon: <Twitter size={20} />, href: '#', label: 'Twitter' },
-  { icon: <Instagram size={20} />, href: '#', label: 'Instagram' },
-  { icon: <Linkedin size={20} />, href: '#', label: 'LinkedIn' },
-  { icon: <Github size={20} />, href: '#', label: 'GitHub' },
+  { icon: <Twitter size={20} />, href: 'https://twitter.com/kratikos', label: 'Twitter (X)' },
+  { icon: <Instagram size={20} />, href: 'https://instagram.com/kratikos.app', label: 'Instagram' },
+  { icon: <Linkedin size={20} />, href: 'https://linkedin.com/company/kratikos', label: 'LinkedIn' },
+  { icon: <Github size={20} />, href: 'https://github.com/kratikos', label: 'GitHub' },
 ];
 
 export default function Contact() {
@@ -141,8 +141,10 @@ export default function Contact() {
                     <a
                       key={social.label}
                       href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={social.label}
-                      className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                      className="min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     >
                       {social.icon}
                     </a>
@@ -182,7 +184,7 @@ export default function Contact() {
                           htmlFor="name"
                           className="block text-sm font-medium text-gray-400 mb-2"
                         >
-                          Nome
+                          Nome <span className="text-red-400" aria-hidden="true">*</span>
                         </label>
                         <input
                           type="text"
@@ -191,7 +193,9 @@ export default function Contact() {
                           value={formState.name}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors"
+                          aria-required="true"
+                          disabled={isSubmitting}
+                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors disabled:opacity-50"
                           placeholder="Seu nome"
                         />
                       </div>
@@ -200,7 +204,7 @@ export default function Contact() {
                           htmlFor="email"
                           className="block text-sm font-medium text-gray-400 mb-2"
                         >
-                          Email
+                          Email <span className="text-red-400" aria-hidden="true">*</span>
                         </label>
                         <input
                           type="email"
@@ -209,7 +213,9 @@ export default function Contact() {
                           value={formState.email}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors"
+                          aria-required="true"
+                          disabled={isSubmitting}
+                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors disabled:opacity-50"
                           placeholder="seu@email.com"
                         />
                       </div>
@@ -220,7 +226,7 @@ export default function Contact() {
                         htmlFor="subject"
                         className="block text-sm font-medium text-gray-400 mb-2"
                       >
-                        Assunto
+                        Assunto <span className="text-red-400" aria-hidden="true">*</span>
                       </label>
                       <select
                         id="subject"
@@ -228,24 +234,26 @@ export default function Contact() {
                         value={formState.subject}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors"
+                        aria-required="true"
+                        disabled={isSubmitting}
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors disabled:opacity-50"
                       >
-                        <option value="" className="bg-black">
+                        <option value="" className="bg-black text-gray-300">
                           Selecione um assunto
                         </option>
-                        <option value="duvida" className="bg-black">
+                        <option value="duvida" className="bg-black text-white">
                           Dúvida
                         </option>
-                        <option value="sugestao" className="bg-black">
+                        <option value="sugestao" className="bg-black text-white">
                           Sugestão
                         </option>
-                        <option value="parceria" className="bg-black">
+                        <option value="parceria" className="bg-black text-white">
                           Parceria
                         </option>
-                        <option value="imprensa" className="bg-black">
+                        <option value="imprensa" className="bg-black text-white">
                           Imprensa
                         </option>
-                        <option value="outro" className="bg-black">
+                        <option value="outro" className="bg-black text-white">
                           Outro
                         </option>
                       </select>
@@ -256,7 +264,7 @@ export default function Contact() {
                         htmlFor="message"
                         className="block text-sm font-medium text-gray-400 mb-2"
                       >
-                        Mensagem
+                        Mensagem <span className="text-red-400" aria-hidden="true">*</span>
                       </label>
                       <textarea
                         id="message"
@@ -264,15 +272,19 @@ export default function Contact() {
                         value={formState.message}
                         onChange={handleChange}
                         required
+                        aria-required="true"
+                        disabled={isSubmitting}
                         rows={5}
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors resize-none"
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors resize-none disabled:opacity-50"
                         placeholder="Escreva sua mensagem..."
                       />
                     </div>
 
                     <Button
+                      type="submit"
                       variant="primary"
                       size="lg"
+                      disabled={isSubmitting}
                       className="w-full"
                       icon={isSubmitting ? undefined : <Send size={18} />}
                     >

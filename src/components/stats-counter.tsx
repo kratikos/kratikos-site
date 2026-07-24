@@ -11,9 +11,10 @@ interface StatsCounterProps {
 }
 
 function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [displayValue, setDisplayValue] = useState(0);
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const desktopRef = useRef<HTMLSpanElement>(null);
+  const mobileRef = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(containerRef, { once: true });
 
   const spring = useSpring(0, {
     mass: 1,
@@ -30,35 +31,39 @@ function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string
   }, [isInView, spring, value]);
 
   useEffect(() => {
-    return display.on('change', (latest) => {
-      setDisplayValue(latest);
-    });
-  }, [display]);
+    const getMobileDisplay = (val: number) => {
+      let formatted = '';
+      if (val >= 1000000) {
+        formatted = (val / 1000000).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + 'M';
+      } else if (val >= 1000) {
+        formatted = Math.floor(val / 1000) + 'k';
+      } else {
+        formatted = val.toString();
+      }
+      
+      if (suffix === '+') {
+        return `+${formatted}`;
+      }
+      return `${formatted}${suffix}`;
+    };
 
-  const getMobileDisplay = (val: number) => {
-    let formatted = '';
-    if (val >= 1000000) {
-      formatted = (val / 1000000).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + 'M';
-    } else if (val >= 1000) {
-      formatted = Math.floor(val / 1000) + 'k';
-    } else {
-      formatted = val.toString();
-    }
-    
-    if (suffix === '+') {
-      return `+${formatted}`;
-    }
-    return `${formatted}${suffix}`;
-  };
+    return display.on('change', (latest) => {
+      if (desktopRef.current) {
+        desktopRef.current.textContent = `${latest.toLocaleString('pt-BR')}${suffix}`;
+      }
+      if (mobileRef.current) {
+        mobileRef.current.textContent = getMobileDisplay(latest);
+      }
+    });
+  }, [display, suffix]);
 
   return (
-    <span ref={ref}>
-      <span className="hidden md:inline">
-        {displayValue.toLocaleString('pt-BR')}
-        {suffix}
+    <span ref={containerRef}>
+      <span ref={desktopRef} className="hidden md:inline">
+        0{suffix}
       </span>
-      <span className="md:hidden">
-        {getMobileDisplay(displayValue)}
+      <span ref={mobileRef} className="md:hidden">
+        0{suffix}
       </span>
     </span>
   );
@@ -81,7 +86,7 @@ export default function StatsCounter({
       <div className="text-4xl md:text-5xl font-bold text-white mb-2">
         <AnimatedNumber value={value} suffix={suffix} />
       </div>
-      <p className="text-gray-600">{label}</p>
+      <p className="text-gray-400 font-medium">{label}</p>
     </motion.div>
   );
 }

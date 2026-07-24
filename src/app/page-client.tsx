@@ -50,9 +50,9 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20">
         {/* Background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-1/4 w-[700px] h-[700px] rounded-full blur-[100px]" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(100,100,100,0.03) 50%, transparent 70%)' }} />
-          <div className="absolute bottom-1/4 -right-1/4 w-[700px] h-[700px] rounded-full blur-[100px]" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(150,150,150,0.02) 50%, transparent 70%)' }} />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full blur-3xl opacity-40 bg-glow-pattern-1" />
+          <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 bg-glow-pattern-2" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -81,7 +81,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
             {/* Subheadline */}
             <motion.p
               variants={fadeInUp}
-              className="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed"
+              className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed"
             >
               Participe de discussões políticas e sociais que impactam seu bairro, 
               seu país e o mundo. Vote, comente e faça a diferença.
@@ -96,7 +96,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#download"
-                icon={<img src="/stores/appstore-icon.svg" alt="App Store" className="h-5 w-auto" />}
+                icon={<img src="/stores/appstore-icon.svg" alt="App Store" width={20} height={20} decoding="async" loading="eager" className="h-5 w-auto" />}
                 iconPosition="left"
               >
                 App Store
@@ -105,7 +105,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="outline"
                 size="lg"
                 href="#download"
-                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" className="h-5 w-auto" />}
+                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" width={20} height={20} decoding="async" loading="eager" className="h-5 w-auto" />}
                 iconPosition="left"
               >
                 Google Play
@@ -132,7 +132,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                   </div>
                   <div>
                     <p className="text-white font-semibold">+2.5M</p>
-                    <p className="text-gray-500 text-sm">Votos hoje</p>
+                    <p className="text-gray-400 text-sm font-medium">Votos hoje</p>
                   </div>
                 </motion.div>
 
@@ -147,7 +147,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                   </div>
                   <div>
                     <p className="text-white font-semibold">150K+</p>
-                    <p className="text-gray-500 text-sm">Usuários ativos</p>
+                    <p className="text-gray-400 text-sm font-medium">Usuários ativos</p>
                   </div>
                 </motion.div>
 
@@ -162,7 +162,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                   </div>
                   <div>
                     <p className="text-white font-semibold">89%</p>
-                    <p className="text-gray-500 text-sm">Engajamento</p>
+                    <p className="text-gray-400 text-sm font-medium">Engajamento</p>
                   </div>
                 </motion.div>
               </div>
@@ -183,7 +183,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Discussões em três níveis
             </h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Do global ao local. Participe de debates que impactam diferentes escalas geográficas.
             </p>
           </motion.div>
@@ -238,7 +238,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Recursos poderosos
             </h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Ferramentas pensadas para potencializar o engajamento cívico.
             </p>
           </motion.div>
@@ -301,7 +301,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <br />
               sua voz ser ouvida?
             </h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto mb-10">
+            <p className="text-gray-400 text-lg max-w-xl mx-auto mb-10">
               Baixe o Kratikos gratuitamente e comece a participar das discussões que moldam o futuro.
             </p>
 
@@ -310,7 +310,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<img src="/stores/appstore-icon.svg" alt="App Store" className="h-6 w-auto" />}
+                icon={<img src="/stores/appstore-icon.svg" alt="App Store" width={24} height={24} decoding="async" loading="lazy" className="h-6 w-auto" />}
                 iconPosition="left"
               >
                 <div className="text-left">
@@ -322,7 +322,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" className="h-6 w-auto" />}
+                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" width={24} height={24} decoding="async" loading="lazy" className="h-6 w-auto" />}
                 iconPosition="left"
               >
                 <div className="text-left">
@@ -335,7 +335,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
             <motion.a
               href="/como-funciona"
               whileHover={{ x: 5 }}
-              className="inline-flex items-center gap-2 mt-8 text-gray-500 hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 mt-8 text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg px-2 py-1"
             >
               Saiba como funciona <ChevronRight size={16} />
             </motion.a>

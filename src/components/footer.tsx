@@ -20,10 +20,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Github, href: '#', label: 'GitHub' },
+  { icon: Twitter, href: 'https://twitter.com/kratikos', label: 'Twitter (X)' },
+  { icon: Instagram, href: 'https://instagram.com/kratikos.app', label: 'Instagram' },
+  { icon: Linkedin, href: 'https://linkedin.com/company/kratikos', label: 'LinkedIn' },
+  { icon: Github, href: 'https://github.com/kratikos', label: 'GitHub' },
 ];
 
 export default function Footer() {
@@ -44,8 +44,10 @@ export default function Footer() {
                 <a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className="min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
                   <social.icon size={18} />
                 </a>
