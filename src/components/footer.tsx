@@ -11,7 +11,6 @@ const footerLinks = {
   empresa: [
     { name: 'Sobre Nós', path: '/sobre' },
     { name: 'Contato', path: '/contato' },
-    { name: 'Blog', path: '/blog' },
   ],
   legal: [
     { name: 'Termos de Uso', path: '/termos' },
