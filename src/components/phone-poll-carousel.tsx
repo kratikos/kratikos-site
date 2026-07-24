@@ -161,10 +161,10 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
           <div className="flex items-center">
             <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-5 w-auto" />
           </div>
-          <Bell size={20} className="text-gray-500" />
+          <Bell size={20} className="text-gray-400" />
         </div>
 
-        <div className="flex border-b border-white/5">
+        <div className="flex border-b border-white/5" role="tablist" aria-label="Escopos de enquetes">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = tab.id === activeScope;
@@ -172,11 +172,15 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
               <button
                 key={tab.id}
                 type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`panel-${tab.id}`}
+                id={`tab-${tab.id}`}
                 onClick={() => setActiveScope(tab.id)}
-                className={`flex-1 py-3 px-2 text-center text-sm transition-colors ${
+                className={`flex-1 py-3 px-2 text-center text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-white/50 ${
                   isActive
                     ? 'text-white border-b-2 border-white'
-                    : 'text-gray-600 border-b-2 border-transparent hover:text-gray-400'
+                    : 'text-gray-400 border-b-2 border-transparent hover:text-gray-200'
                 }`}
               >
                 <Icon size={16} className="inline mr-1" /><br /> {tab.label}
@@ -185,7 +189,7 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
           })}
         </div>
 
-        <div className="flex-1 p-3 flex flex-col">
+        <div className="flex-1 p-3 flex flex-col" role="tabpanel" id={`panel-${activeScope}`} aria-labelledby={`tab-${activeScope}`}>
           <div className="relative flex-1">
             {loading || slideCount === 0 ? (
               <SlideSkeleton />
@@ -205,19 +209,21 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
           </div>
 
           {slideCount > 1 && !loading && (
-            <div className="flex items-center justify-center gap-1.5 pt-3">
+            <div className="flex items-center justify-center gap-1 pt-2">
               {polls.map((poll, index) => (
                 <button
                   key={poll.id}
                   type="button"
                   aria-label={`Ir para enquete ${index + 1}`}
                   onClick={() => handleDotClick(index)}
-                  className={`h-1.5 rounded-full transition-all ${
+                  className="p-2 group focus:outline-none"
+                >
+                  <span className={`block h-1.5 rounded-full transition-all ${
                     index === activeIndex
                       ? 'w-5 bg-white'
-                      : 'w-1.5 bg-white/30 hover:bg-white/50'
-                  }`}
-                />
+                      : 'w-2 bg-white/30 group-hover:bg-white/50'
+                  }`} />
+                </button>
               ))}
             </div>
           )}

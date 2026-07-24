@@ -58,7 +58,7 @@ export default function Header() {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   pathname === link.path
                     ? 'text-white bg-white/10'
-                    : 'text-gray-500 hover:text-white hover:bg-white/5'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {link.name}
@@ -72,7 +72,7 @@ export default function Header() {
               href="#download"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-5 py-2.5 bg-white text-black rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors"
+              className="px-5 py-2.5 bg-white text-black rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
             >
               Baixar App
             </motion.a>
@@ -80,8 +80,11 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
+            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+            aria-label={isMobileMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
+            aria-expanded={isMobileMenuOpen}
+            className="md:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -105,7 +108,7 @@ export default function Header() {
                   className={`px-4 py-3 rounded-xl text-base font-medium transition-all ${
                     pathname === link.path
                       ? 'text-white bg-white/10'
-                      : 'text-gray-500 hover:text-white hover:bg-white/5'
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {link.name}
@@ -113,7 +116,7 @@ export default function Header() {
               ))}
               <a
                 href="#download"
-                className="mt-2 px-4 py-3 bg-white text-black rounded-xl font-semibold text-center"
+                className="mt-2 px-4 py-3 bg-white text-black rounded-xl font-semibold text-center hover:bg-gray-100 transition-colors"
               >
                 Baixar App
               </a>

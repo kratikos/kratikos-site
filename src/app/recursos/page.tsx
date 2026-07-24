@@ -103,15 +103,13 @@ const additionalFeatures = [
 ];
 
 export default function Features() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   return (
-    <main className="pt-24" key={mounted ? "client" : "server"}>
+    <main className="pt-24">
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[80px]" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(128,128,128,0.03) 50%, transparent 70%)' }} />
-          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[60px]" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.05) 0%, transparent 60%)' }} />
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[80px] bg-glow-pattern-1" />
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[60px] bg-glow-pattern-2" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

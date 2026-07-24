@@ -1,0 +1,21 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Blog & Atualizações - Kratikos',
+  description: 'Novidades, artigos sobre engajamento cívico e atualizações da plataforma Kratikos.',
+};
+
+export default function BlogPage() {
+  return (
+    <main className="pt-32 pb-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+      <h1 className="text-4xl font-bold mb-6">Blog & Atualizações</h1>
+      <p className="text-gray-400 mb-8 leading-relaxed">
+        Fique por dentro das últimas notícias sobre a plataforma e artigos sobre tecnologia e democracia.
+      </p>
+
+      <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 text-center">
+        <p className="text-gray-300 text-lg">Em breve publicaremos nossos primeiros artigos e boletins cívicos!</p>
+      </div>
+    </main>
+  );
+}

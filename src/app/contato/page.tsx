@@ -43,8 +43,6 @@ const socialLinks = [
 ];
 
 export default function Contact() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -79,12 +77,12 @@ export default function Contact() {
   };
 
   return (
-    <main className="pt-24" key={mounted ? "client" : "server"}>
+    <main className="pt-24">
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[80px]" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(128,128,128,0.03) 50%, transparent 70%)' }} />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[60px]" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.05) 0%, transparent 60%)' }} />
+          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[80px] bg-glow-pattern-1" />
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[60px] bg-glow-pattern-2" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,7 +96,7 @@ export default function Contact() {
               <br />
               contato
             </h1>
-            <p className="text-lg text-gray-500 leading-relaxed">
+            <p className="text-lg text-gray-400 leading-relaxed">
               Tem uma pergunta, sugestão ou quer saber mais sobre o Kratikos?
               Ficaremos felizes em ouvir você.
             </p>
@@ -120,7 +118,7 @@ export default function Contact() {
                     {info.icon}
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">{info.title}</p>
+                    <p className="text-sm text-gray-400 mb-1">{info.title}</p>
                     {info.href ? (
                       <a
                         href={info.href}
@@ -137,14 +135,14 @@ export default function Contact() {
 
               {/* Social Links */}
               <div className="glass p-6 rounded-2xl">
-                <p className="text-sm text-gray-500 mb-4">Redes Sociais</p>
+                <p className="text-sm text-gray-400 mb-4">Redes Sociais</p>
                 <div className="flex items-center gap-3">
                   {socialLinks.map((social) => (
                     <a
                       key={social.label}
                       href={social.href}
                       aria-label={social.label}
-                      className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:bg-white/10 transition-all"
+                      className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
                     >
                       {social.icon}
                     </a>
@@ -172,7 +170,7 @@ export default function Contact() {
                     <h3 className="text-2xl font-bold text-white mb-2">
                       Mensagem enviada!
                     </h3>
-                    <p className="text-gray-500">
+                    <p className="text-gray-400">
                       Obrigado pelo contato. Responderemos em breve.
                     </p>
                   </motion.div>

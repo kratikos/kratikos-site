@@ -36,7 +36,7 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-6 hover:opacity-80 transition-opacity">
               <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-8 w-auto" />
             </Link>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs">
+            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
               Plataforma de engajamento democrático. Conectando cidadãos para discussões que importam.
             </p>
             <div className="flex items-center gap-3">
@@ -45,7 +45,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:bg-white/10 transition-all"
+                  className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-white/50"
                 >
                   <social.icon size={18} />
                 </a>
@@ -61,7 +61,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    className="text-gray-500 hover:text-white text-sm transition-colors"
+                    className="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline"
                   >
                     {link.name}
                   </Link>
@@ -77,7 +77,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    className="text-gray-500 hover:text-white text-sm transition-colors"
+                    className="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline"
                   >
                     {link.name}
                   </Link>
@@ -93,7 +93,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    className="text-gray-500 hover:text-white text-sm transition-colors"
+                    className="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline"
                   >
                     {link.name}
                   </Link>
@@ -105,10 +105,10 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-600 text-sm">
+          <p className="text-gray-400 text-sm">
             © {new Date().getFullYear()} Kratikos. Todos os direitos reservados.
           </p>
-          <p className="text-gray-600 text-sm flex items-center gap-1">
+          <p className="text-gray-400 text-sm flex items-center gap-1">
             Feito com <Heart size={14} className="text-white" /> no Brasil
           </p>
         </div>

@@ -1,5 +1,4 @@
-/* Custom fonts - must be first */
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* Fonte movida para layout.tsx para melhor performance */
 
 @tailwind base;
 @tailwind components;
@@ -27,8 +26,8 @@
     --input: 0 0% 14%;
     --ring: 0 0% 83.1%;
     --radius: 0.5rem;
-    --font-heading: 'League Spartan', sans-serif;
-    --font-body: 'League Spartan', sans-serif;
+    --font-heading: var(--font-league-spartan), sans-serif;
+    --font-body: var(--font-league-spartan), sans-serif;
   }
 }
 
@@ -77,12 +76,9 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-/* Gradient text utility - now subtle gray gradient */
+/* Crisp high-contrast title utility */
 .gradient-text {
-  background: linear-gradient(135deg, #FFFFFF 0%, #A0A0A0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #FFFFFF;
 }
 
 /* Glass effect - darker */
@@ -110,4 +106,13 @@ h1, h2, h3, h4, h5, h6 {
 /* Radial gradient utility */
 .bg-gradient-radial {
   background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+}
+
+/* Reusable gradient backgrounds for performance & theming */
+.bg-glow-pattern-1 {
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(128,128,128,0.03) 50%, transparent 70%);
+}
+
+.bg-glow-pattern-2 {
+  background: radial-gradient(circle, rgba(200,200,200,0.05) 0%, transparent 60%);
 }
