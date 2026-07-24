@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <main className="pt-32 pb-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-      <h1 className="text-4xl font-bold mb-6">Termos de Uso</h1>
+      <h1 className="text-4xl font-bold mb-6">Termos e Condições de Uso da Plataforma</h1>
       <p className="text-gray-400 mb-8 leading-relaxed">
         Última atualização: {new Date().toLocaleDateString('pt-BR')}
       </p>

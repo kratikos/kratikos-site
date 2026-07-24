@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function CookiesPage() {
   return (
     <main className="pt-32 pb-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-      <h1 className="text-4xl font-bold mb-6">Política de Cookies</h1>
+      <h1 className="text-4xl font-bold mb-6">Política de Cookies e Preferências de Sessão</h1>
       <p className="text-gray-400 mb-8 leading-relaxed">
         Uso de cookies estritamente necessários para o funcionamento e preferências de sessão.
       </p>

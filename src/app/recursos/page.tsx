@@ -142,9 +142,9 @@ export default function Features() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Recursos que
+              Recursos e Funcionalidades:
               <br />
-              empoderam cidadãos
+              Empoderando Cidadãos na Democracia
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed">
               Cada funcionalidade do Kratikos foi pensada para maximizar o engajamento

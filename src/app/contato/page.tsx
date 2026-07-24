@@ -115,9 +115,9 @@ export default function Contact() {
             className="text-center max-w-3xl mx-auto mb-16"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Entre em
+              Fale Conosco:
               <br />
-              contato
+              Contato com a Equipe Kratikos
             </h1>
             <p className="text-lg text-gray-400 leading-relaxed">
               Tem uma pergunta, sugestão ou quer saber mais sobre o Kratikos?

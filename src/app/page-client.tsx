@@ -74,9 +74,9 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               variants={fadeInUp}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
             >
-              Sua voz na
+              Kratikos: Sua voz na
               <br />
-              <span className="text-white">democracia moderna</span>
+              <span className="text-white">democracia e engajamento cívico</span>
             </motion.h1>
 
             {/* Subheadline */}

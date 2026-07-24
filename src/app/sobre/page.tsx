@@ -101,9 +101,9 @@ export default function About() {
               animate={{ opacity: 1, x: 0 }}
             >
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Construindo o futuro do
+                Sobre o Kratikos:
                 <br />
-                engajamento cívico
+                Engajamento Cívico e Democracia
               </h1>
               <p className="text-lg text-gray-400 leading-relaxed mb-8">
                 O Kratikos nasceu da crença de que a tecnologia pode fortalecer a democracia.
@@ -152,6 +152,7 @@ export default function About() {
       {/* Mission */}
       <section className="py-16 lg:py-24 bg-white/[0.01] border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Nossa Missão, Visão e Propósito</h2>
           <div className="grid lg:grid-cols-3 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

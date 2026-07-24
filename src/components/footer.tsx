@@ -64,7 +64,7 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Produto</h4>
+            <p className="text-white font-semibold mb-4">Produto</p>
             <ul className="space-y-3">
               {footerLinks.produto.map((link) => (
                 <li key={link.name}>
@@ -80,7 +80,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Empresa</h4>
+            <p className="text-white font-semibold mb-4">Empresa</p>
             <ul className="space-y-3">
               {footerLinks.empresa.map((link) => (
                 <li key={link.name}>
@@ -96,7 +96,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Legal</h4>
+            <p className="text-white font-semibold mb-4">Legal</p>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>

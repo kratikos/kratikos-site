@@ -54,7 +54,7 @@ export default function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <h1 className="text-4xl font-bold mb-6">Blog & Atualizações</h1>
+      <h1 className="text-4xl font-bold mb-6">Blog Kratikos: Artigos e Atualizações sobre Engajamento Cívico</h1>
       <p className="text-gray-400 mb-8 leading-relaxed">
         Fique por dentro das últimas notícias sobre a plataforma e artigos sobre tecnologia e democracia.
       </p>

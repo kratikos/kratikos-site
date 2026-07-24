@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="pt-32 pb-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-      <h1 className="text-4xl font-bold mb-6">Política de Privacidade</h1>
+      <h1 className="text-4xl font-bold mb-6">Política de Privacidade e Proteção de Dados (LGPD)</h1>
       <p className="text-gray-400 mb-8 leading-relaxed">
         Em conformidade com a LGPD (Lei Geral de Proteção de Dados - Lei nº 13.709/2018).
       </p>

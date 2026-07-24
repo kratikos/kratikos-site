@@ -147,9 +147,9 @@ export default function HowItWorks() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Como o Kratikos
+              Como o Kratikos Funciona:
               <br />
-              funciona
+              Plataforma de Engajamento Cívico
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed">
               Em poucos minutos você estará participando de discussões que importam.
@@ -162,6 +162,7 @@ export default function HowItWorks() {
       {/* Steps */}
       <section className="py-16 lg:py-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Passo a passo para usar o Kratikos</h2>
           <div className="relative">
             {/* Vertical line */}
             <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-white/20 via-white/10 to-transparent hidden md:block" />
