@@ -1,5 +1,19 @@
 import { getPopularPolls } from '../lib/api';
 import HomeClient from './page-client';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Kratikos - A sua voz na política',
+  description: 'Descubra os principais debates políticos em nível internacional, nacional e regional na plataforma Kratikos.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Kratikos - A sua voz na política',
+    description: 'Descubra os principais debates políticos em nível internacional, nacional e regional.',
+    url: '/',
+  },
+};
 
 export default async function Home() {
   const [internacional, nacional, regional] = await Promise.all([

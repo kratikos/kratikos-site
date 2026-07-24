@@ -3,7 +3,11 @@ import './globals.css';
 import { Header, Footer } from '@/components';
 
 export const metadata: Metadata = {
-  title: 'Kratikos - Engajamento Democrático',
+  metadataBase: new URL('https://kratikos.com.br'),
+  title: {
+    default: 'Kratikos - Engajamento Democrático',
+    template: '%s | Kratikos',
+  },
   description: 'Plataforma de engajamento democrático. Participe de discussões políticas e sociais em nível internacional, nacional e regional.',
   keywords: 'democracia, engajamento cívico, política, discussões, votação, cidadania',
   authors: [{ name: 'Kratikos' }],
@@ -12,6 +16,7 @@ export const metadata: Metadata = {
     description: 'Plataforma de engajamento democrático. Participe de discussões políticas e sociais.',
     type: 'website',
     locale: 'pt_BR',
+    siteName: 'Kratikos',
   },
   twitter: {
     card: 'summary_large_image',
@@ -23,6 +28,19 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Kratikos',
+  url: 'https://kratikos.com.br/',
+  description: 'Plataforma de engajamento democrático para discussões políticas e sociais.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://kratikos.com.br/search?q={search_term_string}',
+    'query-input': 'required name=search_term_string'
+  }
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -30,6 +48,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen bg-black flex flex-col">
         <Header />
         <div className="flex-1">
