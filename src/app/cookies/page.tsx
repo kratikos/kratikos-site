@@ -3,6 +3,14 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Política de Cookies - Kratikos',
   description: 'Informações sobre como utilizaremos cookies no Kratikos.',
+  alternates: {
+    canonical: '/cookies',
+  },
+  openGraph: {
+    title: 'Política de Cookies | Kratikos',
+    description: 'Informações sobre como utilizaremos cookies no Kratikos.',
+    url: '/cookies',
+  },
 };
 
 export default function CookiesPage() {

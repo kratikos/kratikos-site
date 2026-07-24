@@ -3,6 +3,14 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Blog & Atualizações - Kratikos',
   description: 'Novidades, artigos sobre engajamento cívico e atualizações da plataforma Kratikos.',
+  alternates: {
+    canonical: '/blog',
+  },
+  openGraph: {
+    title: 'Blog & Atualizações | Kratikos',
+    description: 'Novidades, artigos sobre engajamento cívico e atualizações da plataforma Kratikos.',
+    url: '/blog',
+  },
 };
 
 export default function BlogPage() {

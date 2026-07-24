@@ -3,6 +3,14 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Política de Privacidade - Kratikos',
   description: 'Política de privacidade e proteção de dados LGPD da plataforma Kratikos.',
+  alternates: {
+    canonical: '/privacidade',
+  },
+  openGraph: {
+    title: 'Política de Privacidade | Kratikos',
+    description: 'Política de privacidade e proteção de dados LGPD da plataforma Kratikos.',
+    url: '/privacidade',
+  },
 };
 
 export default function PrivacyPage() {

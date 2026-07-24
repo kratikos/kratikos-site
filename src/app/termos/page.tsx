@@ -3,6 +3,14 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Termos de Uso - Kratikos',
   description: 'Termos e condições de uso da plataforma Kratikos.',
+  alternates: {
+    canonical: '/termos',
+  },
+  openGraph: {
+    title: 'Termos de Uso | Kratikos',
+    description: 'Termos e condições de uso da plataforma Kratikos.',
+    url: '/termos',
+  },
 };
 
 export default function TermsPage() {
