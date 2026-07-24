@@ -10,6 +10,21 @@ export const metadata: Metadata = {
     title: 'Blog & Atualizações | Kratikos',
     description: 'Novidades, artigos sobre engajamento cívico e atualizações da plataforma Kratikos.',
     url: '/blog',
+    siteName: 'Kratikos',
+    images: [
+      {
+        url: '/seo/ogimage.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Blog & Atualizações - Kratikos',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog & Atualizações | Kratikos',
+    description: 'Novidades, artigos sobre engajamento cívico e atualizações da plataforma Kratikos.',
+    images: ['/seo/ogimage.webp'],
   },
 };
 

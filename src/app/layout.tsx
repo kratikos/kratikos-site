@@ -7,6 +7,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
+  themeColor: '#000000',
 };
 
 export const metadata: Metadata = {
@@ -24,14 +25,33 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'pt_BR',
     siteName: 'Kratikos',
+    images: [
+      {
+        url: '/seo/ogimage.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Kratikos - Engajamento Democrático',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Kratikos - Engajamento Democrático',
     description: 'Plataforma de engajamento democrático. Participe de discussões políticas e sociais.',
+    images: ['/seo/ogimage.webp'],
   },
+  manifest: '/site.webmanifest',
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/icons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 

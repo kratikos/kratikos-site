@@ -10,6 +10,21 @@ export const metadata: Metadata = {
     title: 'Recursos | Kratikos',
     description: 'Descubra os recursos do Kratikos: votação transparente, geolocalização e mais.',
     url: '/recursos',
+    siteName: 'Kratikos',
+    images: [
+      {
+        url: '/seo/ogimage.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Recursos - Kratikos',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Recursos | Kratikos',
+    description: 'Descubra os recursos do Kratikos: votação transparente, geolocalização e mais.',
+    images: ['/seo/ogimage.webp'],
   },
 };
 

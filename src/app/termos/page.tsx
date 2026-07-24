@@ -10,6 +10,21 @@ export const metadata: Metadata = {
     title: 'Termos de Uso | Kratikos',
     description: 'Termos e condições de uso da plataforma Kratikos.',
     url: '/termos',
+    siteName: 'Kratikos',
+    images: [
+      {
+        url: '/seo/ogimage.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Termos de Uso - Kratikos',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Termos de Uso | Kratikos',
+    description: 'Termos e condições de uso da plataforma Kratikos.',
+    images: ['/seo/ogimage.webp'],
   },
 };
 

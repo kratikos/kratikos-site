@@ -10,6 +10,21 @@ export const metadata: Metadata = {
     title: 'Política de Privacidade | Kratikos',
     description: 'Política de privacidade e proteção de dados LGPD da plataforma Kratikos.',
     url: '/privacidade',
+    siteName: 'Kratikos',
+    images: [
+      {
+        url: '/seo/ogimage.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Política de Privacidade - Kratikos',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Política de Privacidade | Kratikos',
+    description: 'Política de privacidade e proteção de dados LGPD da plataforma Kratikos.',
+    images: ['/seo/ogimage.webp'],
   },
 };
 
