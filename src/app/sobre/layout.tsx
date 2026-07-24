@@ -10,6 +10,21 @@ export const metadata: Metadata = {
     title: 'Sobre Nós | Kratikos',
     description: 'Conheça o Kratikos e nossa missão de democratizar o acesso ao debate público.',
     url: '/sobre',
+    siteName: 'Kratikos',
+    images: [
+      {
+        url: '/seo/ogimage.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Sobre Nós - Kratikos',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sobre Nós | Kratikos',
+    description: 'Conheça o Kratikos e nossa missão de democratizar o acesso ao debate público.',
+    images: ['/seo/ogimage.webp'],
   },
 };
 

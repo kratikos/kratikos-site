@@ -36,15 +36,32 @@ const contactInfo = [
 ];
 
 const socialLinks = [
-  { icon: <Twitter size={20} />, href: '#', label: 'Twitter' },
-  { icon: <Instagram size={20} />, href: '#', label: 'Instagram' },
-  { icon: <Linkedin size={20} />, href: '#', label: 'LinkedIn' },
-  { icon: <Github size={20} />, href: '#', label: 'GitHub' },
+  { icon: <Twitter size={20} />, href: 'https://twitter.com/kratikos', label: 'Twitter (X)' },
+  { icon: <Instagram size={20} />, href: 'https://instagram.com/kratikos.app', label: 'Instagram' },
+  { icon: <Linkedin size={20} />, href: 'https://linkedin.com/company/kratikos', label: 'LinkedIn' },
+  { icon: <Github size={20} />, href: 'https://github.com/kratikos', label: 'GitHub' },
 ];
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Início',
+      item: 'https://kratikos.com.br/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Contato',
+      item: 'https://kratikos.com.br/contato',
+    },
+  ],
+};
+
 export default function Contact() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -79,12 +96,16 @@ export default function Contact() {
   };
 
   return (
-    <main className="pt-24" key={mounted ? "client" : "server"}>
+    <main className="pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[80px]" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(128,128,128,0.03) 50%, transparent 70%)' }} />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[60px]" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.05) 0%, transparent 60%)' }} />
+          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[80px] bg-glow-pattern-1" />
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[60px] bg-glow-pattern-2" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,11 +115,11 @@ export default function Contact() {
             className="text-center max-w-3xl mx-auto mb-16"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Entre em
+              Fale Conosco:
               <br />
-              contato
+              Contato com a Equipe Kratikos
             </h1>
-            <p className="text-lg text-gray-500 leading-relaxed">
+            <p className="text-lg text-gray-400 leading-relaxed">
               Tem uma pergunta, sugestão ou quer saber mais sobre o Kratikos?
               Ficaremos felizes em ouvir você.
             </p>
@@ -120,7 +141,7 @@ export default function Contact() {
                     {info.icon}
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">{info.title}</p>
+                    <p className="text-sm text-gray-400 mb-1">{info.title}</p>
                     {info.href ? (
                       <a
                         href={info.href}
@@ -137,14 +158,16 @@ export default function Contact() {
 
               {/* Social Links */}
               <div className="glass p-6 rounded-2xl">
-                <p className="text-sm text-gray-500 mb-4">Redes Sociais</p>
+                <p className="text-sm text-gray-400 mb-4">Redes Sociais</p>
                 <div className="flex items-center gap-3">
                   {socialLinks.map((social) => (
                     <a
                       key={social.label}
                       href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={social.label}
-                      className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:bg-white/10 transition-all"
+                      className="min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     >
                       {social.icon}
                     </a>
@@ -172,7 +195,7 @@ export default function Contact() {
                     <h3 className="text-2xl font-bold text-white mb-2">
                       Mensagem enviada!
                     </h3>
-                    <p className="text-gray-500">
+                    <p className="text-gray-400">
                       Obrigado pelo contato. Responderemos em breve.
                     </p>
                   </motion.div>
@@ -184,7 +207,7 @@ export default function Contact() {
                           htmlFor="name"
                           className="block text-sm font-medium text-gray-400 mb-2"
                         >
-                          Nome
+                          Nome <span className="text-red-400" aria-hidden="true">*</span>
                         </label>
                         <input
                           type="text"
@@ -193,7 +216,9 @@ export default function Contact() {
                           value={formState.name}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors"
+                          aria-required="true"
+                          disabled={isSubmitting}
+                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors disabled:opacity-50"
                           placeholder="Seu nome"
                         />
                       </div>
@@ -202,7 +227,7 @@ export default function Contact() {
                           htmlFor="email"
                           className="block text-sm font-medium text-gray-400 mb-2"
                         >
-                          Email
+                          Email <span className="text-red-400" aria-hidden="true">*</span>
                         </label>
                         <input
                           type="email"
@@ -211,7 +236,9 @@ export default function Contact() {
                           value={formState.email}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors"
+                          aria-required="true"
+                          disabled={isSubmitting}
+                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors disabled:opacity-50"
                           placeholder="seu@email.com"
                         />
                       </div>
@@ -222,7 +249,7 @@ export default function Contact() {
                         htmlFor="subject"
                         className="block text-sm font-medium text-gray-400 mb-2"
                       >
-                        Assunto
+                        Assunto <span className="text-red-400" aria-hidden="true">*</span>
                       </label>
                       <select
                         id="subject"
@@ -230,24 +257,26 @@ export default function Contact() {
                         value={formState.subject}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors"
+                        aria-required="true"
+                        disabled={isSubmitting}
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors disabled:opacity-50"
                       >
-                        <option value="" className="bg-black">
+                        <option value="" className="bg-black text-gray-300">
                           Selecione um assunto
                         </option>
-                        <option value="duvida" className="bg-black">
+                        <option value="duvida" className="bg-black text-white">
                           Dúvida
                         </option>
-                        <option value="sugestao" className="bg-black">
+                        <option value="sugestao" className="bg-black text-white">
                           Sugestão
                         </option>
-                        <option value="parceria" className="bg-black">
+                        <option value="parceria" className="bg-black text-white">
                           Parceria
                         </option>
-                        <option value="imprensa" className="bg-black">
+                        <option value="imprensa" className="bg-black text-white">
                           Imprensa
                         </option>
-                        <option value="outro" className="bg-black">
+                        <option value="outro" className="bg-black text-white">
                           Outro
                         </option>
                       </select>
@@ -258,7 +287,7 @@ export default function Contact() {
                         htmlFor="message"
                         className="block text-sm font-medium text-gray-400 mb-2"
                       >
-                        Mensagem
+                        Mensagem <span className="text-red-400" aria-hidden="true">*</span>
                       </label>
                       <textarea
                         id="message"
@@ -266,15 +295,19 @@ export default function Contact() {
                         value={formState.message}
                         onChange={handleChange}
                         required
+                        aria-required="true"
+                        disabled={isSubmitting}
                         rows={5}
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors resize-none"
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-colors resize-none disabled:opacity-50"
                         placeholder="Escreva sua mensagem..."
                       />
                     </div>
 
                     <Button
+                      type="submit"
                       variant="primary"
                       size="lg"
+                      disabled={isSubmitting}
                       className="w-full"
                       icon={isSubmitting ? undefined : <Send size={18} />}
                     >

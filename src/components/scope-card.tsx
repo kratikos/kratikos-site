@@ -39,7 +39,7 @@ export default function ScopeCard({
           </div>
           <p className="text-sm font-medium text-gray-400 mb-1">{subtitle}</p>
           <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
-          <p className="text-gray-500 leading-relaxed">{description}</p>
+          <p className="text-gray-400 leading-relaxed text-sm sm:text-base">{description}</p>
         </CardContent>
 
         {/* Decorative element */}

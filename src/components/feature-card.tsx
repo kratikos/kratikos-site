@@ -35,7 +35,7 @@ export default function FeatureCard({
             {icon}
           </div>
           <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-          <p className="text-gray-500 leading-relaxed">{description}</p>
+          <p className="text-gray-400 leading-relaxed text-sm sm:text-base">{description}</p>
         </CardContent>
       </Card>
     </motion.div>

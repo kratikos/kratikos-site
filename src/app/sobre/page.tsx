@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from 'framer-motion';
 import {
   Target,
@@ -60,16 +61,37 @@ const milestones = [
   { year: '2026', title: 'Expansão', description: 'Novas funcionalidades e crescimento' },
 ];
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Início',
+      item: 'https://kratikos.com.br/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Sobre Nós',
+      item: 'https://kratikos.com.br/sobre',
+    },
+  ],
+};
+
 export default function About() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   return (
-    <main className="pt-24" key={mounted ? "client" : "server"}>
+    <main className="pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[80px]" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(128,128,128,0.03) 50%, transparent 70%)' }} />
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[60px]" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.05) 0%, transparent 60%)' }} />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[80px] bg-glow-pattern-1" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[60px] bg-glow-pattern-2" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,11 +101,11 @@ export default function About() {
               animate={{ opacity: 1, x: 0 }}
             >
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Construindo o futuro do
+                Sobre o Kratikos:
                 <br />
-                engajamento cívico
+                Engajamento Cívico e Democracia
               </h1>
-              <p className="text-lg text-gray-500 leading-relaxed mb-8">
+              <p className="text-lg text-gray-400 leading-relaxed mb-8">
                 O Kratikos nasceu da crença de que a tecnologia pode fortalecer a democracia.
                 Nossa missão é dar voz a cada cidadão, conectando pessoas a discussões que
                 realmente importam — do bairro ao mundo.
@@ -106,9 +128,16 @@ export default function About() {
               <div className="aspect-square rounded-3xl bg-white/[0.02] border border-white/5 flex items-center justify-center">
                 <div className="text-center p-8">
                   <div className="mx-auto mb-8 flex justify-center">
-                    <img src="/visual-identity/logo-vertical-light.svg" alt="Kratikos Logo" className="h-32 w-auto" />
+                    <Image
+                      src="/visual-identity/logo-vertical-light.svg"
+                      alt="Kratikos - Símbolo e Logo Vertical da Plataforma Cívica"
+                      width={128}
+                      height={128}
+                      priority
+                      className="h-32 w-auto"
+                    />
                   </div>
-                  <p className="text-gray-500">
+                  <p className="text-gray-400">
                     Do grego "κρατικός"
                     <br />
                     <span className="text-white">"do cidadão, cívico"</span>
@@ -123,6 +152,7 @@ export default function About() {
       {/* Mission */}
       <section className="py-16 lg:py-24 bg-white/[0.01] border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Nossa Missão, Visão e Propósito</h2>
           <div className="grid lg:grid-cols-3 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -134,7 +164,7 @@ export default function About() {
                 <Target size={28} />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Nossa Missão</h3>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed">
                 Democratizar o acesso ao debate público, permitindo que cada cidadão
                 participe ativamente das discussões que moldam seu futuro.
               </p>
@@ -151,7 +181,7 @@ export default function About() {
                 <Lightbulb size={28} />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Nossa Visão</h3>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed">
                 Um mundo onde a distância entre cidadãos e decisões políticas seja
                 eliminada pela tecnologia e participação ativa.
               </p>
@@ -168,7 +198,7 @@ export default function About() {
                 <Award size={28} />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Nosso Propósito</h3>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed">
                 Criar pontes entre pessoas, comunidades e governos através de
                 diálogos construtivos e engajamento genuíno.
               </p>
@@ -189,7 +219,7 @@ export default function About() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Nossos Valores
             </h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Princípios que guiam cada decisão e funcionalidade do Kratikos.
             </p>
           </motion.div>
@@ -208,7 +238,7 @@ export default function About() {
                   {value.icon}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">{value.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <p className="text-gray-400 text-sm leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>
@@ -229,7 +259,7 @@ export default function About() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Nossa Jornada
             </h2>
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-400 text-lg">
               Os marcos importantes da história do Kratikos.
             </p>
           </motion.div>
@@ -261,7 +291,7 @@ export default function About() {
                       <h3 className="text-xl font-bold text-white mt-1 mb-2">
                         {milestone.title}
                       </h3>
-                      <p className="text-gray-500">{milestone.description}</p>
+                      <p className="text-gray-400">{milestone.description}</p>
                     </div>
                   </div>
                   <div
@@ -289,7 +319,7 @@ export default function About() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Quer fazer parte dessa história?
             </h2>
-            <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">
+            <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
               Baixe o Kratikos e comece a participar de discussões que moldam o futuro.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -298,7 +328,7 @@ export default function About() {
               </Button>
               <Link
                 href="/contato"
-                className="text-gray-500 hover:text-white transition-colors flex items-center gap-2"
+                className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
               >
                 Entre em contato <ArrowRight size={16} />
               </Link>

@@ -16,6 +16,7 @@ interface ButtonProps {
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
   type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -28,6 +29,7 @@ export default function Button({
   icon,
   iconPosition = 'right',
   type = 'button',
+  disabled = false,
 }: ButtonProps) {
   // Map our custom variants to Shadcn variants
   const variantMap: Record<string, "default" | "secondary" | "outline" | "ghost"> = {
@@ -48,25 +50,25 @@ export default function Button({
 
   const buttonContent = (
     <>
-      {icon && iconPosition === 'left' && <span className="mr-2">{icon}</span>}
+      {icon && iconPosition === 'left' && <span className="mr-2 inline-flex items-center">{icon}</span>}
       {children}
-      {icon && iconPosition === 'right' && <span className="ml-2">{icon}</span>}
+      {icon && iconPosition === 'right' && <span className="ml-2 inline-flex items-center">{icon}</span>}
     </>
   );
 
   const motionProps = {
-    whileHover: { scale: 1.02 },
-    whileTap: { scale: 0.98 },
+    whileHover: disabled ? undefined : { scale: 1.02 },
+    whileTap: disabled ? undefined : { scale: 0.98 },
   };
 
-  if (href) {
+  if (href && !disabled) {
     return (
-      <motion.div {...motionProps} className="inline-block">
+      <motion.div {...motionProps} className="inline-block" tabIndex={-1}>
         <ShadcnButton
           asChild
           variant={shadcnVariant}
           size={shadcnSize}
-          className={cn("rounded-xl font-semibold gap-2", className)}
+          className={cn("rounded-xl font-semibold gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black", className)}
         >
           <Link href={href}>
             {buttonContent}
@@ -77,11 +79,12 @@ export default function Button({
   }
 
   return (
-    <motion.div {...motionProps} className="inline-block">
+    <motion.div {...motionProps} className="inline-block" tabIndex={-1}>
       <ShadcnButton
         variant={shadcnVariant}
         size={shadcnSize}
-        className={cn("rounded-xl font-semibold gap-2", className)}
+        disabled={disabled}
+        className={cn("rounded-xl font-semibold gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black", className)}
         onClick={onClick}
         type={type}
       >

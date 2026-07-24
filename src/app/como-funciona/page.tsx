@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from 'framer-motion';
 import {
   Download,
@@ -94,15 +95,49 @@ const faq = [
   },
 ];
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Início',
+      item: 'https://kratikos.com.br/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Como Funciona',
+      item: 'https://kratikos.com.br/como-funciona',
+    },
+  ],
+};
+
 export default function HowItWorks() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   return (
-    <main className="pt-24" key={mounted ? "client" : "server"}>
+    <main className="pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([faqJsonLd, breadcrumbJsonLd]) }}
+      />
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[80px]" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(128,128,128,0.03) 40%, transparent 70%)' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[80px] bg-glow-pattern-1" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,9 +147,9 @@ export default function HowItWorks() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Como o Kratikos
+              Como o Kratikos Funciona:
               <br />
-              funciona
+              Plataforma de Engajamento Cívico
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed">
               Em poucos minutos você estará participando de discussões que importam.
@@ -127,6 +162,7 @@ export default function HowItWorks() {
       {/* Steps */}
       <section className="py-16 lg:py-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Passo a passo para usar o Kratikos</h2>
           <div className="relative">
             {/* Vertical line */}
             <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-white/20 via-white/10 to-transparent hidden md:block" />
@@ -197,7 +233,15 @@ export default function HowItWorks() {
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<img src="/stores/appstore-icon.svg" alt="App Store" className="h-6 w-auto" />}
+                icon={
+                  <Image
+                    src="/stores/appstore-icon.svg"
+                    alt="Baixar Kratikos na App Store"
+                    width={24}
+                    height={24}
+                    className="h-6 w-auto"
+                  />
+                }
                 iconPosition="left"
               >
                 App Store
@@ -206,7 +250,15 @@ export default function HowItWorks() {
                 variant="outline"
                 size="lg"
                 href="#"
-                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" className="h-6 w-auto" />}
+                icon={
+                  <Image
+                    src="/stores/gplay-icon.svg"
+                    alt="Baixar Kratikos no Google Play"
+                    width={24}
+                    height={24}
+                    className="h-6 w-auto"
+                  />
+                }
                 iconPosition="left"
               >
                 Google Play
