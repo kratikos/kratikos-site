@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from 'framer-motion';
 import {
   Download,
@@ -231,7 +232,15 @@ export default function HowItWorks() {
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<img src="/stores/appstore-icon.svg" alt="App Store" className="h-6 w-auto" />}
+                icon={
+                  <Image
+                    src="/stores/appstore-icon.svg"
+                    alt="Baixar Kratikos na App Store"
+                    width={24}
+                    height={24}
+                    className="h-6 w-auto"
+                  />
+                }
                 iconPosition="left"
               >
                 App Store
@@ -240,7 +249,15 @@ export default function HowItWorks() {
                 variant="outline"
                 size="lg"
                 href="#"
-                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" className="h-6 w-auto" />}
+                icon={
+                  <Image
+                    src="/stores/gplay-icon.svg"
+                    alt="Baixar Kratikos no Google Play"
+                    width={24}
+                    height={24}
+                    className="h-6 w-auto"
+                  />
+                }
                 iconPosition="left"
               >
                 Google Play

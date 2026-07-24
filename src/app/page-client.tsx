@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from 'framer-motion';
 import {
   Globe,
@@ -96,7 +97,16 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#download"
-                icon={<img src="/stores/appstore-icon.svg" alt="App Store" width={20} height={20} decoding="async" loading="eager" className="h-5 w-auto" />}
+                icon={
+                  <Image
+                    src="/stores/appstore-icon.svg"
+                    alt="Baixar Kratikos na App Store"
+                    width={20}
+                    height={20}
+                    priority
+                    className="h-5 w-auto"
+                  />
+                }
                 iconPosition="left"
               >
                 App Store
@@ -105,7 +115,16 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="outline"
                 size="lg"
                 href="#download"
-                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" width={20} height={20} decoding="async" loading="eager" className="h-5 w-auto" />}
+                icon={
+                  <Image
+                    src="/stores/gplay-icon.svg"
+                    alt="Baixar Kratikos no Google Play"
+                    width={20}
+                    height={20}
+                    priority
+                    className="h-5 w-auto"
+                  />
+                }
                 iconPosition="left"
               >
                 Google Play
@@ -310,7 +329,15 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<img src="/stores/appstore-icon.svg" alt="App Store" width={24} height={24} decoding="async" loading="lazy" className="h-6 w-auto" />}
+                icon={
+                  <Image
+                    src="/stores/appstore-icon.svg"
+                    alt="Baixar Kratikos na App Store"
+                    width={24}
+                    height={24}
+                    className="h-6 w-auto"
+                  />
+                }
                 iconPosition="left"
               >
                 <div className="text-left">
@@ -322,7 +349,15 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#"
-                icon={<img src="/stores/gplay-icon.svg" alt="Google Play" width={24} height={24} decoding="async" loading="lazy" className="h-6 w-auto" />}
+                icon={
+                  <Image
+                    src="/stores/gplay-icon.svg"
+                    alt="Baixar Kratikos no Google Play"
+                    width={24}
+                    height={24}
+                    className="h-6 w-auto"
+                  />
+                }
                 iconPosition="left"
               >
                 <div className="text-left">

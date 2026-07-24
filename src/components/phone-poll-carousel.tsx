@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import Image from 'next/image';
 import { useReducedMotion, AnimatePresence, motion } from 'framer-motion';
 import {
   Bell,
@@ -160,7 +161,14 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
       <div className="absolute inset-2 rounded-[2.5rem] bg-[#1d1d1d] overflow-hidden border border-white/5 flex flex-col">
         <div className="p-4 pt-8 flex items-center justify-between">
           <div className="flex items-center">
-            <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-5 w-auto" />
+            <Image
+              src="/visual-identity/logo-horizontal-light.svg"
+              alt="Kratikos App - Interface de Enquetes"
+              width={100}
+              height={20}
+              priority
+              className="h-5 w-auto"
+            />
           </div>
           <Bell size={20} className="text-gray-400" />
         </div>

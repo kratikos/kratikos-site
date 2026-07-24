@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from 'framer-motion';
 import {
   Target,
@@ -127,7 +128,14 @@ export default function About() {
               <div className="aspect-square rounded-3xl bg-white/[0.02] border border-white/5 flex items-center justify-center">
                 <div className="text-center p-8">
                   <div className="mx-auto mb-8 flex justify-center">
-                    <img src="/visual-identity/logo-vertical-light.svg" alt="Kratikos Logo" className="h-32 w-auto" />
+                    <Image
+                      src="/visual-identity/logo-vertical-light.svg"
+                      alt="Kratikos - Símbolo e Logo Vertical da Plataforma Cívica"
+                      width={128}
+                      height={128}
+                      priority
+                      className="h-32 w-auto"
+                    />
                   </div>
                   <p className="text-gray-400">
                     Do grego "κρατικός"

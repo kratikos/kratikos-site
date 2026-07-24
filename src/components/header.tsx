@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useReducedMotion, motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -46,7 +47,14 @@ export default function Header() {
               whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-8 w-auto group-hover:opacity-80 transition-opacity" />
+              <Image
+                src="/visual-identity/logo-horizontal-light.svg"
+                alt="Kratikos - Logo Oficial da Plataforma de Engajamento Cívico"
+                width={150}
+                height={32}
+                priority
+                className="h-8 w-auto group-hover:opacity-80 transition-opacity"
+              />
             </motion.div>
           </Link>
 

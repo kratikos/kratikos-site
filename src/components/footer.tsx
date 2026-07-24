@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Github, Twitter, Instagram, Linkedin, Heart } from 'lucide-react';
 
 const footerLinks = {
@@ -34,7 +35,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2">
             <Link href="/" className="inline-block mb-6 hover:opacity-80 transition-opacity">
-              <img src="/visual-identity/logo-horizontal-light.svg" alt="Kratikos" className="h-8 w-auto" />
+              <Image
+                src="/visual-identity/logo-horizontal-light.svg"
+                alt="Kratikos - Logo Rodapé"
+                width={150}
+                height={32}
+                className="h-8 w-auto"
+              />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
               Plataforma de engajamento democrático. Conectando cidadãos para discussões que importam.
