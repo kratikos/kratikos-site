@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidade - Kratikos',
+  title: 'Política de Privacidade',
   description: 'Política de privacidade e proteção de dados LGPD da plataforma Kratikos.',
   alternates: {
     canonical: '/privacidade',

@@ -78,6 +78,10 @@ export default function NotFound() {
 
   return (
     <main className="min-h-screen flex items-center justify-center">
+      <head>
+        <title>Página Não Encontrada | Kratikos</title>
+        <meta name="robots" content="noindex, follow" />
+      </head>
       <div className="container mx-auto px-4 py-16 flex flex-col items-center text-center">
         <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-8">
           <AlertTriangle className="w-12 h-12 text-primary" />

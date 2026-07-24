@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Política de Cookies - Kratikos',
+  title: 'Política de Cookies',
   description: 'Informações sobre como utilizaremos cookies no Kratikos.',
   alternates: {
     canonical: '/cookies',

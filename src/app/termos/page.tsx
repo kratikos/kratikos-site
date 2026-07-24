@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Termos de Uso - Kratikos',
+  title: 'Termos de Uso',
   description: 'Termos e condições de uso da plataforma Kratikos.',
   alternates: {
     canonical: '/termos',
