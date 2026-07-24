@@ -13,9 +13,32 @@ export const metadata: Metadata = {
   },
 };
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Início',
+      item: 'https://kratikos.com.br/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: 'https://kratikos.com.br/blog',
+    },
+  ],
+};
+
 export default function BlogPage() {
   return (
     <main className="pt-32 pb-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <h1 className="text-4xl font-bold mb-6">Blog & Atualizações</h1>
       <p className="text-gray-400 mb-8 leading-relaxed">
         Fique por dentro das últimas notícias sobre a plataforma e artigos sobre tecnologia e democracia.

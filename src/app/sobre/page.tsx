@@ -60,9 +60,32 @@ const milestones = [
   { year: '2026', title: 'Expansão', description: 'Novas funcionalidades e crescimento' },
 ];
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Início',
+      item: 'https://kratikos.com.br/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Sobre Nós',
+      item: 'https://kratikos.com.br/sobre',
+    },
+  ],
+};
+
 export default function About() {
   return (
     <main className="pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">

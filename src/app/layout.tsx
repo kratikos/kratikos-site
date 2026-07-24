@@ -35,18 +35,42 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Kratikos',
-  url: 'https://kratikos.com.br/',
-  description: 'Plataforma de engajamento democrático para discussões políticas e sociais.',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: 'https://kratikos.com.br/search?q={search_term_string}',
-    'query-input': 'required name=search_term_string'
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Kratikos',
+    url: 'https://kratikos.com.br/',
+    description: 'Plataforma de engajamento democrático para discussões políticas e sociais.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://kratikos.com.br/search?q={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Kratikos',
+    url: 'https://kratikos.com.br/',
+    logo: 'https://kratikos.com.br/visual-identity/logo-horizontal-light.svg',
+    description: 'Plataforma de engajamento cívico e democrático.'
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Kratikos',
+    operatingSystem: 'iOS, Android',
+    applicationCategory: 'SocialNetworkingApplication',
+    url: 'https://kratikos.com.br/',
+    description: 'Plataforma de engajamento democrático. Participe de discussões políticas e sociais em nível internacional, nacional e regional.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'BRL'
+    }
   }
-};
+];
 
 const leagueSpartan = League_Spartan({
   subsets: ['latin'],

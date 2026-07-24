@@ -42,6 +42,25 @@ const socialLinks = [
   { icon: <Github size={20} />, href: 'https://github.com/kratikos', label: 'GitHub' },
 ];
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Início',
+      item: 'https://kratikos.com.br/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Contato',
+      item: 'https://kratikos.com.br/contato',
+    },
+  ],
+};
+
 export default function Contact() {
   const [formState, setFormState] = useState({
     name: '',
@@ -78,6 +97,10 @@ export default function Contact() {
 
   return (
     <main className="pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
         <div className="absolute inset-0 overflow-hidden">
