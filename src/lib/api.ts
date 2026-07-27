@@ -1,6 +1,7 @@
 import type { Poll, PollScope, PopularPollsResponse } from '../types/poll';
 
 const API_URL =
+  process.env.API_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
   'https://kratikos-dev-backend-development.up.railway.app';
 
@@ -25,4 +26,45 @@ export async function getPopularPolls(
 
   const json: PopularPollsResponse = await response.json();
   return json.data ?? [];
+}
+
+export interface SharedPost {
+  id: string;
+  title?: string | null;
+  content?: string | null;
+  imageUrl?: string | null;
+  image_url?: string | null;
+  author?: {
+    name?: string | null;
+    nickname?: string | null;
+  } | null;
+  poll?: {
+    id: string;
+    question?: string | null;
+    description?: string | null;
+  } | null;
+}
+
+export async function getSharedPost(id: string): Promise<SharedPost | null> {
+  try {
+    const response = await fetch(
+      `${API_URL}/posts/${encodeURIComponent(id)}/preview`,
+      {
+        headers: { Accept: 'application/json' },
+        next: { revalidate: 60 },
+      },
+    );
+    if (!response.ok) return null;
+
+    const body: unknown = await response.json();
+    if (!body || typeof body !== 'object') return null;
+    const record = body as Record<string, unknown>;
+    const post =
+      record.data && typeof record.data === 'object'
+        ? (record.data as SharedPost)
+        : (record as unknown as SharedPost);
+    return post.id ? post : null;
+  } catch {
+    return null;
+  }
 }

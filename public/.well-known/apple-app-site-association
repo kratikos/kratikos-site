@@ -1,0 +1,33 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "T55Q6Y63L5.br.com.kratikos.kratikos",
+          "T55Q6Y63L5.br.com.kratikos.kratikos.dev"
+        ],
+        "components": [
+          {
+            "/": "/home*"
+          },
+          {
+            "/": "/profile*"
+          },
+          {
+            "/": "/post*"
+          },
+          {
+            "/": "/posts/*"
+          },
+          {
+            "/": "/poll*"
+          },
+          {
+            "/": "/subpoll*"
+          }
+        ]
+      }
+    ]
+  }
+}

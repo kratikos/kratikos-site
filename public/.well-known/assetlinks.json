@@ -1,0 +1,26 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "br.com.kratikos.kratikos",
+      "sha256_cert_fingerprints": [
+        "EF:9B:C7:17:38:8A:FD:43:F1:87:E2:9E:14:A4:9E:D3:C8:99:67:4C:5A:C6:52:31:52:D9:B9:5C:84:E3:4E:47"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "br.com.kratikos.kratikos.dev",
+      "sha256_cert_fingerprints": [
+        "EF:9B:C7:17:38:8A:FD:43:F1:87:E2:9E:14:A4:9E:D3:C8:99:67:4C:5A:C6:52:31:52:D9:B9:5C:84:E3:4E:47"
+      ]
+    }
+  }
+]
