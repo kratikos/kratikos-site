@@ -104,10 +104,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
   return (
-    <html lang="pt-BR" data-scroll-behavior="smooth" className={leagueSpartan.variable}>
-      {/* tag ficticia para fallback */}
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || 'GTM-PRTGVBSF'} />
+    <html
+      lang="pt-BR"
+      data-scroll-behavior="smooth"
+      className={leagueSpartan.variable}
+      suppressHydrationWarning
+    >
       <head>
         <script
           type="application/ld+json"
@@ -115,6 +120,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-black flex flex-col">
+        {gtmId && <GoogleTagManager gtmId={gtmId} />}
         <Header />
         <div className="flex-1">
           {children}

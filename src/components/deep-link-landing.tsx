@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRight, ExternalLink, Smartphone } from 'lucide-react';
+import { trackEvent } from '@/lib/gtm';
 
 interface DeepLinkLandingProps {
   deepLink: string;
@@ -52,6 +53,7 @@ export default function DeepLinkLanding({
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <a
             href={deepLink}
+            onClick={() => trackEvent('click_deeplink_open_app', { deepLink, title })}
             className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-7 py-3 font-semibold text-black transition hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
           >
             Abrir no app
@@ -59,6 +61,7 @@ export default function DeepLinkLanding({
           </a>
           <a
             href="https://kratikos.com.br"
+            onClick={() => trackEvent('click_deeplink_explore_web', { location: 'deeplink_landing' })}
             className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3 font-semibold text-white transition hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
           >
             Conhecer o Kratikos
