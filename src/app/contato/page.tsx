@@ -13,6 +13,7 @@ import {
   Github,
 } from 'lucide-react';
 import { Button } from "@/components";
+import { trackEvent } from "@/lib/gtm";
 
 const contactInfo = [
   {
@@ -74,6 +75,8 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    trackEvent('generate_lead', { subject: formState.subject || 'nao_especificado' });
 
     // Simula envio
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -145,6 +148,7 @@ export default function Contact() {
                     {info.href ? (
                       <a
                         href={info.href}
+                        onClick={() => trackEvent('click_contact_email', { email_type: info.title.toLowerCase() })}
                         className="text-white font-medium hover:opacity-80 transition-opacity"
                       >
                         {info.value}
@@ -167,6 +171,7 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.label}
+                      onClick={() => trackEvent('click_social_link', { platform: social.label, location: 'contact' })}
                       className="min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     >
                       {social.icon}

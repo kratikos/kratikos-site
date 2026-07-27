@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useReducedMotion, motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { trackEvent } from '@/lib/gtm';
 
 const navLinks = [
   { name: 'Início', path: '/' },
@@ -33,6 +34,12 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  const handleMobileMenuToggle = () => {
+    const nextState = !isMobileMenuOpen;
+    setIsMobileMenuOpen(nextState);
+    trackEvent('toggle_mobile_menu', { state: nextState ? 'open' : 'close' });
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border pt-[max(0.75rem,env(safe-area-inset-top))] ${
@@ -42,7 +49,11 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center group py-1">
+          <Link
+            href="/"
+            className="flex items-center group py-1"
+            onClick={() => trackEvent('click_navigation', { destination: '/', location: 'header_logo' })}
+          >
             <motion.div
               whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
               transition={{ duration: 0.2 }}
@@ -64,6 +75,7 @@ export default function Header() {
               <Link
                 key={link.path}
                 href={link.path}
+                onClick={() => trackEvent('click_navigation', { destination: link.path, location: 'header' })}
                 className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
                   pathname === link.path
                     ? 'text-white bg-white/10'
@@ -79,6 +91,7 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-4">
             <motion.a
               href="#download"
+              onClick={() => trackEvent('click_cta_download', { location: 'header' })}
               whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               className="px-5 py-2.5 bg-white text-black rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
@@ -90,7 +103,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             type="button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={handleMobileMenuToggle}
             aria-label={isMobileMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
             aria-expanded={isMobileMenuOpen}
             className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 text-white hover:bg-white/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
@@ -115,6 +128,7 @@ export default function Header() {
                 <Link
                   key={link.path}
                   href={link.path}
+                  onClick={() => trackEvent('click_navigation', { destination: link.path, location: 'mobile_menu' })}
                   className={`min-h-[44px] flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all ${
                     pathname === link.path
                       ? 'text-white bg-white/10'
@@ -126,6 +140,7 @@ export default function Header() {
               ))}
               <a
                 href="#download"
+                onClick={() => trackEvent('click_cta_download', { location: 'mobile_menu' })}
                 className="mt-2 min-h-[44px] flex items-center justify-center px-4 py-3 bg-white text-black rounded-xl font-semibold text-center hover:bg-gray-100 transition-colors"
               >
                 Baixar App

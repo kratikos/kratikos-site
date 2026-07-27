@@ -26,6 +26,7 @@ import {
   PhonePollCarousel,
 } from "@/components";
 import type { Poll, PollScope } from "@/types/poll";
+import { trackEvent } from "@/lib/gtm";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -43,11 +44,8 @@ const stagger = {
 
 
 export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Partial<Record<PollScope, Poll[]>> }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  
   return (
-    <main className="overflow-hidden" key={mounted ? "client" : "server"}>
+    <main className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20">
         {/* Background elements */}
@@ -97,6 +95,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#download"
+                onClick={() => trackEvent('click_store_download', { store: 'app_store', location: 'hero' })}
                 icon={
                   <Image
                     src="/stores/appstore-icon.svg"
@@ -115,6 +114,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="outline"
                 size="lg"
                 href="#download"
+                onClick={() => trackEvent('click_store_download', { store: 'google_play', location: 'hero' })}
                 icon={
                   <Image
                     src="/stores/gplay-icon.svg"
@@ -329,6 +329,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#"
+                onClick={() => trackEvent('click_store_download', { store: 'app_store', location: 'footer_banner' })}
                 icon={
                   <Image
                     src="/stores/appstore-icon.svg"
@@ -349,6 +350,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                 variant="primary"
                 size="lg"
                 href="#"
+                onClick={() => trackEvent('click_store_download', { store: 'google_play', location: 'footer_banner' })}
                 icon={
                   <Image
                     src="/stores/gplay-icon.svg"
@@ -369,6 +371,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
 
             <motion.a
               href="/como-funciona"
+              onClick={() => trackEvent('click_navigation', { destination: '/como-funciona', location: 'footer_banner_link' })}
               whileHover={{ x: 5 }}
               className="inline-flex items-center gap-2 mt-8 text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg px-2 py-1"
             >

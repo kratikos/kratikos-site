@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { League_Spartan } from 'next/font/google';
+import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
 import { Header, Footer } from '@/components';
 
@@ -105,6 +106,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth" className={leagueSpartan.variable}>
+      {/* tag ficticia para fallback */}
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || 'GTM-PRTGVBSF'} />
       <head>
         <script
           type="application/ld+json"

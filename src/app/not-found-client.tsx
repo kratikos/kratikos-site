@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import Button from '@/components/button';
 import { Home, ArrowRight, AlertTriangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { trackEvent } from '@/lib/gtm';
 
 const validRoutes = [
   { path: '/', name: 'Início' },
@@ -58,6 +59,8 @@ export default function NotFoundClient() {
   
   useEffect(() => {
     if (pathname) {
+      trackEvent('view_404_error', { path: pathname });
+
       let bestMatch = null;
       let highestSimilarity = 0;
 
@@ -92,7 +95,14 @@ export default function NotFoundClient() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <Button href="/" variant="primary" size="lg" icon={<Home className="w-5 h-5" />} iconPosition="left">
+          <Button
+            href="/"
+            variant="primary"
+            size="lg"
+            onClick={() => trackEvent('click_404_back_home')}
+            icon={<Home className="w-5 h-5" />}
+            iconPosition="left"
+          >
             Voltar ao Início
           </Button>
           
@@ -100,7 +110,8 @@ export default function NotFoundClient() {
             <Button 
               href={suggestedRoute.path} 
               variant="outline" 
-              size="lg" 
+              size="lg"
+              onClick={() => trackEvent('click_404_suggestion', { destination: suggestedRoute.path })}
               icon={<ArrowRight className="w-5 h-5" />}
               iconPosition="right"
             >

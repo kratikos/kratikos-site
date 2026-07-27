@@ -13,6 +13,7 @@ import {
 import { getPopularPolls } from '../lib/api';
 import { POLL_MOCKS } from '../lib/poll-mocks';
 import type { Poll, PollScope } from '../types/poll';
+import { trackEvent } from '@/lib/gtm';
 
 const TABS: { id: PollScope; label: string; icon: typeof Globe }[] = [
   { id: 'internacional', label: 'Internacional', icon: Globe },
@@ -36,33 +37,35 @@ function PollSlide({ poll }: { poll: Poll }) {
   const visibleOptions = poll.options.slice(0, 2);
 
   return (
-    <div className="bg-white/[0.02] rounded-xl p-3 border border-white/5">
-      <p className="text-white text-sm font-medium mb-3 line-clamp-2">
-        {poll.question}
-      </p>
+    <div className="bg-white/[0.02] rounded-xl p-3 border border-white/5 min-h-[220px] flex flex-col justify-between">
+      <div>
+        <p className="text-white text-sm font-medium mb-3 line-clamp-2">
+          {poll.question}
+        </p>
 
-      <div className="space-y-2 mb-3">
-        {visibleOptions.map((option) => {
-          const percentage =
-            totalVotes > 0 ? Math.round((option.votesCount / totalVotes) * 100) : 0;
-          return (
-            <div key={option.id} className="space-y-1">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-white/90 truncate pr-2">{option.content}</span>
-                <span className="text-gray-300 tabular-nums font-medium">{percentage}%</span>
+        <div className="space-y-2 mb-3">
+          {visibleOptions.map((option) => {
+            const percentage =
+              totalVotes > 0 ? Math.round((option.votesCount / totalVotes) * 100) : 0;
+            return (
+              <div key={option.id} className="space-y-1">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-white/90 truncate pr-2">{option.content}</span>
+                  <span className="text-gray-300 tabular-nums font-medium">{percentage}%</span>
+                </div>
+                <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                  <div
+                    className="h-full bg-white/90 rounded-full transition-all"
+                    style={{ width: `${percentage}%` }}
+                  />
+                </div>
               </div>
-              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
-                <div
-                  className="h-full bg-white/90 rounded-full transition-all"
-                  style={{ width: `${percentage}%` }}
-                />
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
-      <div className="flex items-center gap-3 text-xs text-gray-400">
+      <div className="flex items-center gap-3 text-xs text-gray-400 pt-2 border-t border-white/5 mt-auto">
         <span className="tabular-nums font-medium">{formatCount(totalVotes)} votos</span>
         <span className="flex items-center gap-1 ml-auto">
           <MessageSquare size={12} />
@@ -75,14 +78,16 @@ function PollSlide({ poll }: { poll: Poll }) {
 
 function SlideSkeleton() {
   return (
-    <div className="bg-white/[0.02] rounded-xl p-3 border border-white/5 animate-pulse">
-      <div className="h-3 w-3/4 rounded bg-white/10 mb-2" />
-      <div className="h-3 w-2/3 rounded bg-white/10 mb-4" />
-      <div className="space-y-2 mb-3">
-        <div className="h-1.5 w-full rounded-full bg-white/10" />
-        <div className="h-1.5 w-full rounded-full bg-white/10" />
+    <div className="bg-white/[0.02] rounded-xl p-3 border border-white/5 animate-pulse min-h-[220px] flex flex-col justify-between">
+      <div>
+        <div className="h-3 w-3/4 rounded bg-white/10 mb-2" />
+        <div className="h-3 w-2/3 rounded bg-white/10 mb-4" />
+        <div className="space-y-2 mb-3">
+          <div className="h-1.5 w-full rounded-full bg-white/10" />
+          <div className="h-1.5 w-full rounded-full bg-white/10" />
+        </div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between pt-2 border-t border-white/5">
         <div className="h-2.5 w-12 rounded bg-white/10" />
         <div className="h-2.5 w-8 rounded bg-white/10" />
       </div>
@@ -145,9 +150,16 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
   }, [shouldRotate, slideCount]);
 
   const directionRef = useRef(1);
+
+  const handleScopeChange = (scope: PollScope) => {
+    setActiveScope(scope);
+    trackEvent('select_poll_scope', { scope });
+  };
+
   const handleDotClick = (index: number) => {
     directionRef.current = index > activeIndex ? 1 : -1;
     setActiveIndex(index);
+    trackEvent('interact_poll_preview', { scope: activeScope, slide_index: index });
   };
 
   return (
@@ -185,7 +197,7 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
                 aria-selected={isActive}
                 aria-controls={`panel-${tab.id}`}
                 id={`tab-${tab.id}`}
-                onClick={() => setActiveScope(tab.id)}
+                onClick={() => handleScopeChange(tab.id)}
                 className={`min-h-[44px] flex-1 py-2 px-2 text-center text-xs sm:text-sm font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 ${
                   isActive
                     ? 'text-white border-b-2 border-white'
