@@ -1,3 +1,5 @@
+import { trackEvent } from './gtm';
+
 export const APP_STORE_URL =
   process.env.NEXT_PUBLIC_APP_STORE_URL ||
   'https://apps.apple.com/app/kratikos/id6740000000';
@@ -17,6 +19,12 @@ export interface OpenDeepLinkOptions {
   openInNewTab?: boolean;
 }
 
+export interface SmartDownloadOptions {
+  location?: string;
+  router?: { push: (url: string) => void };
+  pathname?: string;
+}
+
 export function detectOS(): 'ios' | 'android' | 'other' {
   if (typeof window === 'undefined') return 'other';
   const ua =
@@ -29,6 +37,45 @@ export function detectOS(): 'ios' | 'android' | 'other' {
   return 'other';
 }
 
+export function handleSmartDownloadClick(
+  e: React.MouseEvent,
+  options?: SmartDownloadOptions
+): void {
+  if (options?.location) {
+    trackEvent('click_cta_download', { location: options.location });
+  }
+
+  const os = detectOS();
+  if (os === 'ios') {
+    e.preventDefault();
+    window.location.href = APP_STORE_URL;
+    return;
+  }
+  if (os === 'android') {
+    e.preventDefault();
+    window.location.href = PLAY_STORE_URL;
+    return;
+  }
+
+  const downloadEl = typeof document !== 'undefined' ? document.getElementById('download') : null;
+  if (downloadEl) {
+    e.preventDefault();
+    downloadEl.scrollIntoView({ behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('pulse-download-buttons'));
+    }
+  } else {
+    if (options?.pathname && options.pathname !== '/') {
+      e.preventDefault();
+      if (options.router) {
+        options.router.push('/#download');
+      } else {
+        window.location.href = '/#download';
+      }
+    }
+  }
+}
+
 export function getStoreUrl(targetStore: StoreTarget = 'auto'): string | null {
   const os = detectOS();
   if (targetStore === 'appstore') return APP_STORE_URL;
@@ -36,6 +83,28 @@ export function getStoreUrl(targetStore: StoreTarget = 'auto'): string | null {
   if (os === 'ios') return APP_STORE_URL;
   if (os === 'android') return PLAY_STORE_URL;
   return null;
+}
+
+/**
+ * Resolves the full URL for a deeplink path.
+ * If running locally on 'localhost:3000', returns 'http://deeplink.localhost:3000/path'.
+ * In production or default, uses process.env.NEXT_PUBLIC_DEEPLINK_URL || 'https://deeplink.kratikos.com.br'.
+ */
+export function getDeeplinkUrl(path: string = '/'): string {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  if (typeof window !== 'undefined') {
+    const host = window.location.host;
+    const protocol = window.location.protocol;
+
+    if (host.includes('localhost')) {
+      if (host.startsWith('deeplink.')) {
+        return `${protocol}//${host}${cleanPath}`;
+      }
+      return `${protocol}//deeplink.${host}${cleanPath}`;
+    }
+  }
+  const deeplinkOrigin = process.env.NEXT_PUBLIC_DEEPLINK_URL || 'https://deeplink.kratikos.com.br';
+  return `${deeplinkOrigin}${cleanPath}`;
 }
 
 /**
@@ -95,7 +164,11 @@ export function openDeepLink({
 }: OpenDeepLinkOptions): void {
   if (typeof window === 'undefined') return;
 
-  const resolvedStoreUrl = fallbackUrl || getStoreUrl(targetStore);
+  let rawStoreUrl = fallbackUrl || getStoreUrl(targetStore);
+  if (rawStoreUrl && rawStoreUrl.startsWith('/')) {
+    rawStoreUrl = getDeeplinkUrl(rawStoreUrl);
+  }
+  const resolvedStoreUrl = rawStoreUrl;
   const startTime = Date.now();
 
   // Try custom scheme

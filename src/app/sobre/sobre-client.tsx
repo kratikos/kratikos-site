@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 import { motion } from 'framer-motion';
 import {
   Target,
@@ -13,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Button } from "@/components";
 import Link from "next/link";
+import { handleSmartDownloadClick } from "@/lib/deeplink";
 
 const values = [
   {
@@ -80,6 +82,9 @@ const breadcrumbJsonLd = {
 };
 
 export default function AboutClient() {
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <main className="pt-24">
       <script
@@ -321,7 +326,12 @@ export default function AboutClient() {
               Baixe o Kratikos e comece a participar de discussões que moldam o futuro.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button variant="primary" size="lg" href="/#download">
+              <Button
+                variant="primary"
+                size="lg"
+                href="/#download"
+                onClick={(e) => handleSmartDownloadClick(e, { location: 'sobre', pathname, router })}
+              >
                 Baixar App
               </Button>
               <Link

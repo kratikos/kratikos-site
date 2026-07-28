@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useReducedMotion, motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { trackEvent } from '@/lib/gtm';
-import { openDeepLink } from '@/lib/deeplink';
+import { handleSmartDownloadClick } from '@/lib/deeplink';
 
 
 
@@ -23,6 +23,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -93,11 +94,9 @@ export default function Header() {
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
             <motion.a
-              href="#download"
+              href="/#download"
               onClick={(e) => {
-                e.preventDefault();
-                trackEvent('click_cta_download', { location: 'header' });
-                openDeepLink({ deepLink: 'kratikos://home' });
+                handleSmartDownloadClick(e, { location: 'header', pathname, router });
               }}
               whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
@@ -146,11 +145,9 @@ export default function Header() {
                 </Link>
               ))}
               <a
-                href="#download"
+                href="/#download"
                 onClick={(e) => {
-                  e.preventDefault();
-                  trackEvent('click_cta_download', { location: 'mobile_menu' });
-                  openDeepLink({ deepLink: 'kratikos://home' });
+                  handleSmartDownloadClick(e, { location: 'mobile_menu', pathname, router });
                 }}
                 className="mt-2 min-h-[44px] flex items-center justify-center px-4 py-3 bg-white text-black rounded-xl font-semibold text-center hover:bg-gray-100 transition-colors"
               >

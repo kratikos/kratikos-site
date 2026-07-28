@@ -2,15 +2,17 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter, usePathname } from 'next/navigation';
 import { Github, Twitter, Instagram, Linkedin, Heart } from 'lucide-react';
 import { trackEvent } from '@/lib/gtm';
+import { handleSmartDownloadClick } from '@/lib/deeplink';
 
 
 const footerLinks = {
   produto: [
     { name: 'Recursos', path: '/recursos' },
     { name: 'Como Funciona', path: '/como-funciona' },
-    { name: 'Download', path: '#download' },
+    { name: 'Download', path: '/#download' },
   ],
   empresa: [
     { name: 'Sobre Nós', path: '/sobre' },
@@ -31,6 +33,13 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleDownloadClick = (e: React.MouseEvent) => {
+    handleSmartDownloadClick(e, { location: 'footer_produto', pathname, router });
+  };
+
   return (
     <footer className="bg-black border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -79,7 +88,13 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    onClick={() => trackEvent('click_navigation', { destination: link.path, location: 'footer_produto' })}
+                    onClick={(e) => {
+                      if (link.name === 'Download') {
+                        handleDownloadClick(e);
+                      } else {
+                        trackEvent('click_navigation', { destination: link.path, location: 'footer_produto' });
+                      }
+                    }}
                     className="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline"
                   >
                     {link.name}

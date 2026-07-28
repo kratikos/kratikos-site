@@ -79,3 +79,42 @@ export async function getSharedPost(id: string): Promise<SharedPost | null> {
     return null;
   }
 }
+
+export interface PlatformStats {
+  todayVotes: number;
+  activeUsers: number;
+  engagementPercentage: number;
+  totalVotes: number;
+  totalDiscussions: number;
+}
+
+export async function getPlatformStats(): Promise<PlatformStats> {
+  const fallbackStats: PlatformStats = {
+    todayVotes: 2500000,
+    activeUsers: 150000,
+    engagementPercentage: 89,
+    totalVotes: 2500000,
+    totalDiscussions: 85000,
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/stats`, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 600 }, // Mantem dados em cache por 10 minutos
+    });
+
+    if (!response.ok) return fallbackStats;
+    const body = await response.json();
+    const data = body?.data ?? body;
+
+    return {
+      todayVotes: Number(data.todayVotes ?? data.today_votes ?? fallbackStats.todayVotes),
+      activeUsers: Number(data.activeUsers ?? data.active_users ?? fallbackStats.activeUsers),
+      engagementPercentage: Number(data.engagementPercentage ?? data.engagement_percentage ?? fallbackStats.engagementPercentage),
+      totalVotes: Number(data.totalVotes ?? data.total_votes ?? fallbackStats.totalVotes),
+      totalDiscussions: Number(data.totalDiscussions ?? data.total_discussions ?? fallbackStats.totalDiscussions),
+    };
+  } catch {
+    return fallbackStats;
+  }
+}

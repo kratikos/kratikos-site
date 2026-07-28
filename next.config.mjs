@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  allowedDevOrigins: ['192.168.0.125', 'localhost', 'refreeze-cartridge-flaxseed.ngrok-free.dev'],
   async headers() {
     return [
       {

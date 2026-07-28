@@ -71,22 +71,40 @@ export default function ContactClient() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
     trackEvent('generate_lead', { subject: formState.subject || 'nao_especificado' });
 
-    // Simula envio
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormState({ name: '', email: '', subject: '', message: '' });
+      const data = await response.json();
 
-    // Reset após 5 segundos
-    setTimeout(() => setIsSubmitted(false), 5000);
+      if (!response.ok) {
+        throw new Error(data.error || 'Ocorreu um erro ao enviar sua mensagem.');
+      }
+
+      setIsSubmitted(true);
+      setFormState({ name: '', email: '', subject: '', message: '' });
+
+      setTimeout(() => setIsSubmitted(false), 8000);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Falha ao enviar a mensagem. Tente novamente.';
+      setErrorMessage(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -206,6 +224,11 @@ export default function ContactClient() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {errorMessage && (
+                      <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+                        {errorMessage}
+                      </div>
+                    )}
                     <div className="grid sm:grid-cols-2 gap-6">
                       <div>
                         <label

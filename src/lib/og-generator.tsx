@@ -29,6 +29,20 @@ function KratikosLogo() {
   );
 }
 
+function formatDate(dateInput?: string | Date | null): string | null {
+  if (!dateInput) return null;
+  try {
+    const d = new Date(dateInput);
+    if (isNaN(d.getTime())) return null;
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  } catch {
+    return null;
+  }
+}
+
 export async function generateOgImageResponse(data?: string) {
   const post = data ? await getSharedPost(data) : null;
 
@@ -51,7 +65,51 @@ export async function generateOgImageResponse(data?: string) {
   const categoryName = post?.category?.name || 'Política';
   const scope = post?.scope || 'internacional';
   const authorName = post?.author?.name || post?.author?.nickname || null;
-  const options = post?.poll?.options?.slice(0, 2) || [];
+
+  // Lógica de Votos e Porcentagem das Opções
+  const rawOptions = (post?.poll?.options as Array<Record<string, unknown>>) || [];
+  const totalVotes = rawOptions.reduce((sum, opt) => {
+    const votes = Number(opt.votesCount ?? opt.votes_count ?? 0);
+    return sum + votes;
+  }, 0);
+
+  const formattedOptions = rawOptions.slice(0, 2).map((opt) => {
+    const votes = Number(opt.votesCount ?? opt.votes_count ?? 0);
+    const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
+    return {
+      id: String(opt.id || opt.content),
+      content: String(opt.content || ''),
+      percentage,
+    };
+  });
+
+  // Lógica de Datas (Válido até DD/MM/YYYY vs Ativo desde DD/MM/YYYY)
+  const rawPost = post as Record<string, unknown> | null;
+  const rawPoll = post?.poll as Record<string, unknown> | null;
+
+  const endDateRaw =
+    rawPoll?.endDate ||
+    rawPoll?.end_date ||
+    rawPoll?.expiresAt ||
+    rawPoll?.expires_at ||
+    rawPost?.endDate ||
+    rawPost?.end_date;
+
+  const startDateRaw =
+    rawPoll?.startDate ||
+    rawPoll?.start_date ||
+    rawPoll?.createdAt ||
+    rawPoll?.created_at ||
+    rawPost?.startDate ||
+    rawPost?.start_date ||
+    rawPost?.createdAt ||
+    rawPost?.created_at;
+
+  const formattedEndDate = formatDate(endDateRaw as string | null);
+  const formattedStartDate = formatDate(startDateRaw as string | null) || formatDate(new Date());
+
+  const dateLabel = formattedEndDate ? 'Válido até' : 'Ativo desde';
+  const dateValue = formattedEndDate || formattedStartDate;
 
   return new ImageResponse(
     (
@@ -249,23 +307,40 @@ export async function generateOgImageResponse(data?: string) {
               {title}
             </div>
 
-            {/* Opções da enquete */}
-            {options.length > 0 ? (
+            {/* Opções da enquete com Porcentagem de Votos */}
+            {formattedOptions.length > 0 ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '12px' }}>
-                {options.map((opt) => (
+                {formattedOptions.map((opt) => (
                   <div
                     key={opt.id}
                     style={{
-                      padding: '14px',
+                      position: 'relative',
+                      padding: '14px 16px',
                       borderRadius: '14px',
                       backgroundColor: 'rgba(255, 255, 255, 0.06)',
                       border: '1px solid rgba(255, 255, 255, 0.08)',
                       display: 'flex',
                       alignItems: 'center',
+                      justifyContent: 'space-between',
+                      overflow: 'hidden',
                     }}
                   >
-                    <span style={{ fontSize: '15px', color: '#ffffff', fontWeight: '500' }}>
+                    {/* Barra de progresso visual */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        bottom: 0,
+                        width: `${opt.percentage}%`,
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      }}
+                    />
+                    <span style={{ fontSize: '15px', color: '#ffffff', fontWeight: '500', zIndex: 1, flex: 1, paddingRight: '12px' }}>
                       {opt.content}
+                    </span>
+                    <span style={{ fontSize: '15px', color: '#ffffff', fontWeight: '700', zIndex: 1 }}>
+                      {opt.percentage}%
                     </span>
                   </div>
                 ))}
@@ -287,6 +362,7 @@ export async function generateOgImageResponse(data?: string) {
             )}
           </div>
 
+          {/* Rodapé do Card Lateral: Válido até DD/MM/YYYY ou Ativo desde DD/MM/YYYY */}
           <div
             style={{
               display: 'flex',
@@ -298,8 +374,8 @@ export async function generateOgImageResponse(data?: string) {
               fontSize: '14px',
             }}
           >
-            <span>Plataforma de Engajamento</span>
-            <span style={{ color: '#ffffff', fontWeight: '700' }}>Kratikos App</span>
+            <span>{dateLabel}</span>
+            <span style={{ color: '#ffffff', fontWeight: '700' }}>{dateValue}</span>
           </div>
         </div>
       </div>
