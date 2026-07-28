@@ -179,7 +179,6 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
               width={100}
               height={20}
               priority
-              style={{ width: 'auto', height: 'auto' }}
               className="h-5 w-auto"
             />
           </div>

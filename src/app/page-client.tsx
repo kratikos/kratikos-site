@@ -107,8 +107,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     width={20}
                     height={20}
                     priority
-                    style={{ width: 'auto', height: 'auto' }}
-                    className="h-5 w-auto"
+                    className="h-5 w-5"
                   />
                 }
                 iconPosition="left"
@@ -129,8 +128,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     width={20}
                     height={20}
                     priority
-                    style={{ width: 'auto', height: 'auto' }}
-                    className="h-5 w-auto"
+                    className="h-5 w-5"
                   />
                 }
                 iconPosition="left"
@@ -346,8 +344,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     alt="Baixar Kratikos na App Store"
                     width={24}
                     height={24}
-                    style={{ width: 'auto', height: 'auto' }}
-                    className="h-6 w-auto"
+                    className="h-6 w-6"
                   />
                 }
                 iconPosition="left"
@@ -370,8 +367,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     alt="Baixar Kratikos no Google Play"
                     width={24}
                     height={24}
-                    style={{ width: 'auto', height: 'auto' }}
-                    className="h-6 w-auto"
+                    className="h-6 w-6"
                   />
                 }
                 iconPosition="left"

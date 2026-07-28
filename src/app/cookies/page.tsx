@@ -7,8 +7,8 @@ export const metadata: Metadata = {
     canonical: '/cookies',
   },
   openGraph: {
-    title: 'Política de Cookies | Kratikos',
-    description: 'Informações sobre como utilizaremos cookies no Kratikos.',
+    title: 'Política de Cookies',
+    description: 'Informações sobre a utilização de cookies na plataforma Kratikos.',
     url: '/cookies',
     siteName: 'Kratikos',
     images: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Política de Cookies | Kratikos',
+    title: 'Política de Cookies',
     description: 'Informações sobre como utilizaremos cookies no Kratikos.',
     images: ['/seo/ogimage.webp'],
   },

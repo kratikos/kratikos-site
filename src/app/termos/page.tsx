@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     canonical: '/termos',
   },
   openGraph: {
-    title: 'Termos de Uso | Kratikos',
+    title: 'Termos de Uso',
     description: 'Termos e condições de uso da plataforma Kratikos.',
     url: '/termos',
     siteName: 'Kratikos',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Termos de Uso | Kratikos',
+    title: 'Termos de Uso',
     description: 'Termos e condições de uso da plataforma Kratikos.',
     images: ['/seo/ogimage.webp'],
   },
