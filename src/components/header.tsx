@@ -7,6 +7,9 @@ import { usePathname } from 'next/navigation';
 import { useReducedMotion, motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { trackEvent } from '@/lib/gtm';
+import { openDeepLink } from '@/lib/deeplink';
+
+
 
 const navLinks = [
   { name: 'Início', path: '/' },
@@ -91,7 +94,11 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-4">
             <motion.a
               href="#download"
-              onClick={() => trackEvent('click_cta_download', { location: 'header' })}
+              onClick={(e) => {
+                e.preventDefault();
+                trackEvent('click_cta_download', { location: 'header' });
+                openDeepLink({ deepLink: 'kratikos://home' });
+              }}
               whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               className="px-5 py-2.5 bg-white text-black rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
@@ -140,7 +147,11 @@ export default function Header() {
               ))}
               <a
                 href="#download"
-                onClick={() => trackEvent('click_cta_download', { location: 'mobile_menu' })}
+                onClick={(e) => {
+                  e.preventDefault();
+                  trackEvent('click_cta_download', { location: 'mobile_menu' });
+                  openDeepLink({ deepLink: 'kratikos://home' });
+                }}
                 className="mt-2 min-h-[44px] flex items-center justify-center px-4 py-3 bg-white text-black rounded-xl font-semibold text-center hover:bg-gray-100 transition-colors"
               >
                 Baixar App

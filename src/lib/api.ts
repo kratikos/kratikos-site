@@ -34,6 +34,12 @@ export interface SharedPost {
   content?: string | null;
   imageUrl?: string | null;
   image_url?: string | null;
+  scope?: string | null;
+  category?: {
+    id?: string | null;
+    name?: string | null;
+    description?: string | null;
+  } | null;
   author?: {
     name?: string | null;
     nickname?: string | null;
@@ -42,6 +48,11 @@ export interface SharedPost {
     id: string;
     question?: string | null;
     description?: string | null;
+    options?: Array<{
+      id: string;
+      content: string;
+      votesCount?: number;
+    }> | null;
   } | null;
 }
 
@@ -51,7 +62,7 @@ export async function getSharedPost(id: string): Promise<SharedPost | null> {
       `${API_URL}/posts/${encodeURIComponent(id)}/preview`,
       {
         headers: { Accept: 'application/json' },
-        next: { revalidate: 60 },
+        cache: 'no-store',
       },
     );
     if (!response.ok) return null;

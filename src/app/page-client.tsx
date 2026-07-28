@@ -27,6 +27,8 @@ import {
 } from "@/components";
 import type { Poll, PollScope } from "@/types/poll";
 import { trackEvent } from "@/lib/gtm";
+import { openDeepLink } from "@/lib/deeplink";
+
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -94,8 +96,10 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <Button
                 variant="primary"
                 size="lg"
-                href="#download"
-                onClick={() => trackEvent('click_store_download', { store: 'app_store', location: 'hero' })}
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'app_store', location: 'hero' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'appstore' });
+                }}
                 icon={
                   <Image
                     src="/stores/appstore-icon.svg"
@@ -103,6 +107,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     width={20}
                     height={20}
                     priority
+                    style={{ width: 'auto', height: 'auto' }}
                     className="h-5 w-auto"
                   />
                 }
@@ -113,8 +118,10 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <Button
                 variant="outline"
                 size="lg"
-                href="#download"
-                onClick={() => trackEvent('click_store_download', { store: 'google_play', location: 'hero' })}
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'google_play', location: 'hero' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'googleplay' });
+                }}
                 icon={
                   <Image
                     src="/stores/gplay-icon.svg"
@@ -122,6 +129,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     width={20}
                     height={20}
                     priority
+                    style={{ width: 'auto', height: 'auto' }}
                     className="h-5 w-auto"
                   />
                 }
@@ -328,14 +336,17 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <Button
                 variant="primary"
                 size="lg"
-                href="#"
-                onClick={() => trackEvent('click_store_download', { store: 'app_store', location: 'footer_banner' })}
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'app_store', location: 'footer_banner' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'appstore' });
+                }}
                 icon={
                   <Image
                     src="/stores/appstore-icon.svg"
                     alt="Baixar Kratikos na App Store"
                     width={24}
                     height={24}
+                    style={{ width: 'auto', height: 'auto' }}
                     className="h-6 w-auto"
                   />
                 }
@@ -349,14 +360,17 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <Button
                 variant="primary"
                 size="lg"
-                href="#"
-                onClick={() => trackEvent('click_store_download', { store: 'google_play', location: 'footer_banner' })}
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'google_play', location: 'footer_banner' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'googleplay' });
+                }}
                 icon={
                   <Image
                     src="/stores/gplay-icon.svg"
                     alt="Baixar Kratikos no Google Play"
                     width={24}
                     height={24}
+                    style={{ width: 'auto', height: 'auto' }}
                     className="h-6 w-auto"
                   />
                 }

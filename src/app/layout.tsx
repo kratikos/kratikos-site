@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { League_Spartan } from 'next/font/google';
 import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
-import { Header, Footer } from '@/components';
+import { Header, Footer, SubdomainCorrector } from '@/components';
+
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -121,6 +122,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-black flex flex-col">
         {gtmId && <GoogleTagManager gtmId={gtmId} />}
+        <SubdomainCorrector />
         <Header />
         <div className="flex-1">
           {children}

@@ -134,6 +134,7 @@ export default function About() {
                       width={128}
                       height={128}
                       priority
+                      style={{ width: 'auto', height: 'auto' }}
                       className="h-32 w-auto"
                     />
                   </div>

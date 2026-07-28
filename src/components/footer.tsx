@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Github, Twitter, Instagram, Linkedin, Heart } from 'lucide-react';
 import { trackEvent } from '@/lib/gtm';
 
+
 const footerLinks = {
   produto: [
     { name: 'Recursos', path: '/recursos' },
@@ -46,6 +47,7 @@ export default function Footer() {
                 alt="Kratikos - Logo Rodapé"
                 width={150}
                 height={32}
+                style={{ width: 'auto', height: 'auto' }}
                 className="h-8 w-auto"
               />
             </Link>

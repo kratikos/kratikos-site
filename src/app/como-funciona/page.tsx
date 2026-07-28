@@ -15,6 +15,9 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { Button } from "@/components";
+import { trackEvent } from "@/lib/gtm";
+import { openDeepLink } from "@/lib/deeplink";
+
 
 const steps = [
   {
@@ -232,13 +235,17 @@ export default function HowItWorks() {
               <Button
                 variant="primary"
                 size="lg"
-                href="#"
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'app_store', location: 'como_funciona' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'appstore' });
+                }}
                 icon={
                   <Image
                     src="/stores/appstore-icon.svg"
                     alt="Baixar Kratikos na App Store"
                     width={24}
                     height={24}
+                    style={{ width: 'auto', height: 'auto' }}
                     className="h-6 w-auto"
                   />
                 }
@@ -249,13 +256,17 @@ export default function HowItWorks() {
               <Button
                 variant="outline"
                 size="lg"
-                href="#"
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'google_play', location: 'como_funciona' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'googleplay' });
+                }}
                 icon={
                   <Image
                     src="/stores/gplay-icon.svg"
                     alt="Baixar Kratikos no Google Play"
                     width={24}
                     height={24}
+                    style={{ width: 'auto', height: 'auto' }}
                     className="h-6 w-auto"
                   />
                 }
