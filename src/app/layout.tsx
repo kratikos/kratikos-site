@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { League_Spartan } from 'next/font/google';
+import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
-import { Header, Footer } from '@/components';
+import { Header, Footer, SubdomainCorrector } from '@/components';
+
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -103,8 +105,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
   return (
-    <html lang="pt-BR" data-scroll-behavior="smooth" className={leagueSpartan.variable}>
+    <html
+      lang="pt-BR"
+      data-scroll-behavior="smooth"
+      className={leagueSpartan.variable}
+      suppressHydrationWarning
+    >
       <head>
         <script
           type="application/ld+json"
@@ -112,6 +121,8 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-black flex flex-col">
+        {gtmId && <GoogleTagManager gtmId={gtmId} />}
+        <SubdomainCorrector />
         <Header />
         <div className="flex-1">
           {children}

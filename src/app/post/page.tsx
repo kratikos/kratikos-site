@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import DeepLinkLanding from '@/components/deep-link-landing';
 import { getSharedPost } from '@/lib/api';
 
-const DEEP_LINK_ORIGIN = 'https://deeplink.kratikos.com.br';
+const DEEP_LINK_ORIGIN = process.env.NEXT_PUBLIC_DEEPLINK_URL || 'https://deeplink.kratikos.com.br';
 
 function excerpt(value: string | null | undefined, maxLength = 180) {
   const normalized = value?.replace(/\s+/g, ' ').trim() ?? '';
@@ -19,6 +19,8 @@ function postPresentation(
   const rawImage = post?.imageUrl || post?.image_url || null;
   return {
     eyebrow: isPoll ? 'Enquete compartilhada' : 'Publicação compartilhada',
+    categoryName: post?.category?.name || null,
+    scope: post?.scope || null,
     title:
       pollQuestion ||
       excerpt(postText, 90) ||
@@ -46,7 +48,11 @@ export async function generateMetadata({
   const canonical = data
     ? `${DEEP_LINK_ORIGIN}/post?data=${encodeURIComponent(data)}`
     : `${DEEP_LINK_ORIGIN}/post`;
-  const images = presentation.image ? [presentation.image] : undefined;
+  const ogImageUrl = data
+    ? `${DEEP_LINK_ORIGIN}/post/og-image?data=${encodeURIComponent(data)}`
+    : `${DEEP_LINK_ORIGIN}/seo/ogimage.webp`;
+
+  const images = presentation.image ? [presentation.image] : [ogImageUrl];
 
   return {
     title: presentation.title,
@@ -63,7 +69,7 @@ export async function generateMetadata({
       images,
     },
     twitter: {
-      card: images ? 'summary_large_image' : 'summary',
+      card: 'summary_large_image',
       title: presentation.title,
       description: presentation.description,
       images,
@@ -79,6 +85,31 @@ export default async function SharedPostPage({
   const { data } = await searchParams;
   const post = data ? await getSharedPost(data) : null;
   const presentation = postPresentation(post);
+  const canonical = data
+    ? `${DEEP_LINK_ORIGIN}/post?data=${encodeURIComponent(data)}`
+    : `${DEEP_LINK_ORIGIN}/post`;
+
+  const jsonLd = post
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'SocialMediaPosting',
+        headline: presentation.title,
+        articleBody: presentation.description,
+        author: presentation.author
+          ? {
+              '@type': 'Person',
+              name: presentation.author,
+            }
+          : undefined,
+        image: presentation.image || undefined,
+        url: canonical,
+        publisher: {
+          '@type': 'Organization',
+          name: 'Kratikos',
+          url: 'https://kratikos.com.br',
+        },
+      }
+    : null;
 
   if (!data) {
     return (
@@ -92,13 +123,23 @@ export default async function SharedPostPage({
   }
 
   return (
-    <DeepLinkLanding
-      deepLink={`kratikos://post?data=${encodeURIComponent(data)}`}
-      eyebrow={presentation.eyebrow}
-      title={presentation.title}
-      description={presentation.description}
-      content={presentation.content}
-      author={presentation.author}
-    />
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      <DeepLinkLanding
+        deepLink={`kratikos://post?data=${encodeURIComponent(data)}`}
+        eyebrow={presentation.eyebrow}
+        categoryName={presentation.categoryName}
+        scope={presentation.scope}
+        title={presentation.title}
+        description={presentation.description}
+        content={presentation.content}
+        author={presentation.author}
+      />
+    </>
   );
 }

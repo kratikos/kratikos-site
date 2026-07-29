@@ -1,12 +1,18 @@
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter, usePathname } from 'next/navigation';
 import { Github, Twitter, Instagram, Linkedin, Heart } from 'lucide-react';
+import { trackEvent } from '@/lib/gtm';
+import { handleSmartDownloadClick } from '@/lib/deeplink';
+
 
 const footerLinks = {
   produto: [
     { name: 'Recursos', path: '/recursos' },
     { name: 'Como Funciona', path: '/como-funciona' },
-    { name: 'Download', path: '#download' },
+    { name: 'Download', path: '/#download' },
   ],
   empresa: [
     { name: 'Sobre Nós', path: '/sobre' },
@@ -27,18 +33,30 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleDownloadClick = (e: React.MouseEvent) => {
+    handleSmartDownloadClick(e, { location: 'footer_produto', pathname, router });
+  };
+
   return (
     <footer className="bg-black border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="inline-block mb-6 hover:opacity-80 transition-opacity">
+            <Link
+              href="/"
+              onClick={() => trackEvent('click_navigation', { destination: '/', location: 'footer_logo' })}
+              className="inline-block mb-6 hover:opacity-80 transition-opacity"
+            >
               <Image
                 src="/visual-identity/logo-horizontal-light.svg"
                 alt="Kratikos - Logo Rodapé"
                 width={150}
                 height={32}
+                style={{ width: 'auto', height: 'auto' }}
                 className="h-8 w-auto"
               />
             </Link>
@@ -53,6 +71,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
+                  onClick={() => trackEvent('click_social_link', { platform: social.label, location: 'footer' })}
                   className="min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
                   <social.icon size={18} />
@@ -69,6 +88,13 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.path}
+                    onClick={(e) => {
+                      if (link.name === 'Download') {
+                        handleDownloadClick(e);
+                      } else {
+                        trackEvent('click_navigation', { destination: link.path, location: 'footer_produto' });
+                      }
+                    }}
                     className="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline"
                   >
                     {link.name}
@@ -85,6 +111,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.path}
+                    onClick={() => trackEvent('click_navigation', { destination: link.path, location: 'footer_empresa' })}
                     className="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline"
                   >
                     {link.name}
@@ -101,6 +128,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.path}
+                    onClick={() => trackEvent('click_navigation', { destination: link.path, location: 'footer_legal' })}
                     className="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline"
                   >
                     {link.name}

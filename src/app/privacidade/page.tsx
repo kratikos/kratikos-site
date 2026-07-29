@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     canonical: '/privacidade',
   },
   openGraph: {
-    title: 'Política de Privacidade | Kratikos',
+    title: 'Política de Privacidade',
     description: 'Política de privacidade e proteção de dados LGPD da plataforma Kratikos.',
     url: '/privacidade',
     siteName: 'Kratikos',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Política de Privacidade | Kratikos',
+    title: 'Política de Privacidade',
     description: 'Política de privacidade e proteção de dados LGPD da plataforma Kratikos.',
     images: ['/seo/ogimage.webp'],
   },

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from 'framer-motion';
 import {
@@ -26,6 +26,9 @@ import {
   PhonePollCarousel,
 } from "@/components";
 import type { Poll, PollScope } from "@/types/poll";
+import type { PlatformStats } from "@/lib/api";
+import { trackEvent } from "@/lib/gtm";
+import { openDeepLink } from "@/lib/deeplink";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -41,13 +44,82 @@ const stagger = {
   },
 };
 
+function formatStatText(value?: number, prefix = '', suffix = ''): string {
+  if (value === undefined || value === null) return '';
+  if (value >= 1_000_000) return `${prefix}${(value / 1_000_000).toFixed(1)}M${suffix}`;
+  if (value >= 1_000) return `${prefix}${(value / 1_000).toFixed(0)}K${suffix}`;
+  return `${prefix}${value}${suffix}`;
+}
 
-export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Partial<Record<PollScope, Poll[]>> }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  
+
+export default function HomeClient({
+  prefetchedPolls,
+  stats,
+}: {
+  prefetchedPolls?: Partial<Record<PollScope, Poll[]>>;
+  stats?: PlatformStats;
+}) {
+  const [isStorePulsing, setIsStorePulsing] = useState(false);
+  const pendingPulseRef = useRef(false);
+
+  useEffect(() => {
+    let animTimer: NodeJS.Timeout;
+    let delayTimer: NodeJS.Timeout;
+
+    const startPulseAnimation = () => {
+      delayTimer = setTimeout(() => {
+        setIsStorePulsing(true);
+        animTimer = setTimeout(() => setIsStorePulsing(false), 1000);
+      }, 350);
+    };
+
+    if (typeof window !== 'undefined' && window.location.hash === '#download') {
+      pendingPulseRef.current = true;
+    }
+
+    const handlePulseEvent = () => {
+      pendingPulseRef.current = true;
+      const el = document.getElementById('download');
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+        if (isVisible) {
+          pendingPulseRef.current = false;
+          startPulseAnimation();
+        }
+      }
+    };
+
+    window.addEventListener('pulse-download-buttons', handlePulseEvent);
+
+    const downloadEl = document.getElementById('download');
+    let observer: IntersectionObserver | null = null;
+
+    if (downloadEl && typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && pendingPulseRef.current) {
+              pendingPulseRef.current = false;
+              startPulseAnimation();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(downloadEl);
+    }
+
+    return () => {
+      clearTimeout(animTimer);
+      clearTimeout(delayTimer);
+      window.removeEventListener('pulse-download-buttons', handlePulseEvent);
+      if (observer && downloadEl) observer.unobserve(downloadEl);
+    };
+  }, []);
+
   return (
-    <main className="overflow-hidden" key={mounted ? "client" : "server"}>
+    <main className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20">
         {/* Background elements */}
@@ -96,7 +168,10 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <Button
                 variant="primary"
                 size="lg"
-                href="#download"
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'app_store', location: 'hero' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'appstore' });
+                }}
                 icon={
                   <Image
                     src="/stores/appstore-icon.svg"
@@ -104,7 +179,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     width={20}
                     height={20}
                     priority
-                    className="h-5 w-auto"
+                    className="h-5 w-5"
                   />
                 }
                 iconPosition="left"
@@ -114,7 +189,10 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <Button
                 variant="outline"
                 size="lg"
-                href="#download"
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'google_play', location: 'hero' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'googleplay' });
+                }}
                 icon={
                   <Image
                     src="/stores/gplay-icon.svg"
@@ -122,7 +200,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     width={20}
                     height={20}
                     priority
-                    className="h-5 w-auto"
+                    className="h-5 w-5"
                   />
                 }
                 iconPosition="left"
@@ -150,7 +228,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     <ThumbsUp size={20} className="text-black" />
                   </div>
                   <div>
-                    <p className="text-white font-semibold">+2.5M</p>
+                    <p className="text-white font-semibold">+{formatStatText(stats?.todayVotes ?? 2500000)}</p>
                     <p className="text-gray-400 text-sm font-medium">Votos hoje</p>
                   </div>
                 </motion.div>
@@ -165,7 +243,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     <Users size={20} className="text-black" />
                   </div>
                   <div>
-                    <p className="text-white font-semibold">150K+</p>
+                    <p className="text-white font-semibold">{formatStatText(stats?.activeUsers ?? 150000, '', '+')}</p>
                     <p className="text-gray-400 text-sm font-medium">Usuários ativos</p>
                   </div>
                 </motion.div>
@@ -180,7 +258,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
                     <BarChart3 size={20} className="text-black" />
                   </div>
                   <div>
-                    <p className="text-white font-semibold">89%</p>
+                    <p className="text-white font-semibold">{stats?.engagementPercentage ?? 89}%</p>
                     <p className="text-gray-400 text-sm font-medium">Engajamento</p>
                   </div>
                 </motion.div>
@@ -236,11 +314,10 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
       {/* Stats Section */}
       <section className="relative py-24 lg:py-32 bg-white/[0.01] border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            <StatsCounter value={150000} suffix="+" label="Usuários Ativos" delay={0} />
-            <StatsCounter value={2500000} suffix="+" label="Votos Registrados" delay={0.1} />
-            <StatsCounter value={85000} suffix="+" label="Discussões Criadas" delay={0.2} />
-            <StatsCounter value={500} suffix="+" label="Cidades Conectadas" delay={0.3} />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
+            <StatsCounter value={stats?.activeUsers ?? 150000} suffix="+" label="Usuários Ativos" delay={0} />
+            <StatsCounter value={stats?.totalVotes ?? 2500000} suffix="+" label="Votos Registrados" delay={0.1} />
+            <StatsCounter value={stats?.totalDiscussions ?? 85000} suffix="+" label="Discussões Criadas" delay={0.2} />
           </div>
         </div>
       </section>
@@ -328,14 +405,18 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <Button
                 variant="primary"
                 size="lg"
-                href="#"
+                className={isStorePulsing ? 'animate-store-pulse' : ''}
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'app_store', location: 'footer_banner' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'appstore' });
+                }}
                 icon={
                   <Image
                     src="/stores/appstore-icon.svg"
                     alt="Baixar Kratikos na App Store"
                     width={24}
                     height={24}
-                    className="h-6 w-auto"
+                    className="h-6 w-6"
                   />
                 }
                 iconPosition="left"
@@ -348,14 +429,18 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
               <Button
                 variant="primary"
                 size="lg"
-                href="#"
+                className={isStorePulsing ? 'animate-store-pulse' : ''}
+                onClick={() => {
+                  trackEvent('click_store_download', { store: 'google_play', location: 'footer_banner' });
+                  openDeepLink({ deepLink: 'kratikos://home', targetStore: 'googleplay' });
+                }}
                 icon={
                   <Image
                     src="/stores/gplay-icon.svg"
                     alt="Baixar Kratikos no Google Play"
                     width={24}
                     height={24}
-                    className="h-6 w-auto"
+                    className="h-6 w-6"
                   />
                 }
                 iconPosition="left"
@@ -369,6 +454,7 @@ export default function HomeClient({ prefetchedPolls }: { prefetchedPolls?: Part
 
             <motion.a
               href="/como-funciona"
+              onClick={() => trackEvent('click_navigation', { destination: '/como-funciona', location: 'footer_banner_link' })}
               whileHover={{ x: 5 }}
               className="inline-flex items-center gap-2 mt-8 text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg px-2 py-1"
             >

@@ -34,6 +34,12 @@ export interface SharedPost {
   content?: string | null;
   imageUrl?: string | null;
   image_url?: string | null;
+  scope?: string | null;
+  category?: {
+    id?: string | null;
+    name?: string | null;
+    description?: string | null;
+  } | null;
   author?: {
     name?: string | null;
     nickname?: string | null;
@@ -42,6 +48,11 @@ export interface SharedPost {
     id: string;
     question?: string | null;
     description?: string | null;
+    options?: Array<{
+      id: string;
+      content: string;
+      votesCount?: number;
+    }> | null;
   } | null;
 }
 
@@ -51,7 +62,7 @@ export async function getSharedPost(id: string): Promise<SharedPost | null> {
       `${API_URL}/posts/${encodeURIComponent(id)}/preview`,
       {
         headers: { Accept: 'application/json' },
-        next: { revalidate: 60 },
+        cache: 'no-store',
       },
     );
     if (!response.ok) return null;
@@ -66,5 +77,44 @@ export async function getSharedPost(id: string): Promise<SharedPost | null> {
     return post.id ? post : null;
   } catch {
     return null;
+  }
+}
+
+export interface PlatformStats {
+  todayVotes: number;
+  activeUsers: number;
+  engagementPercentage: number;
+  totalVotes: number;
+  totalDiscussions: number;
+}
+
+export async function getPlatformStats(): Promise<PlatformStats> {
+  const fallbackStats: PlatformStats = {
+    todayVotes: 2500000,
+    activeUsers: 150000,
+    engagementPercentage: 89,
+    totalVotes: 2500000,
+    totalDiscussions: 85000,
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/stats`, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 600 }, // Mantem dados em cache por 10 minutos
+    });
+
+    if (!response.ok) return fallbackStats;
+    const body = await response.json();
+    const data = body?.data ?? body;
+
+    return {
+      todayVotes: Number(data.votesToday ?? data.todayVotes ?? data.votes_today ?? data.today_votes ?? fallbackStats.todayVotes),
+      activeUsers: Number(data.activeUsers ?? data.active_users ?? fallbackStats.activeUsers),
+      engagementPercentage: Number(data.engagementRate ?? data.engagementPercentage ?? data.engagement_rate ?? data.engagement_percentage ?? fallbackStats.engagementPercentage),
+      totalVotes: Number(data.registeredVotes ?? data.totalVotes ?? data.registered_votes ?? data.total_votes ?? fallbackStats.totalVotes),
+      totalDiscussions: Number(data.discussionsCreated ?? data.totalDiscussions ?? data.discussions_created ?? data.total_discussions ?? fallbackStats.totalDiscussions),
+    };
+  } catch {
+    return fallbackStats;
   }
 }

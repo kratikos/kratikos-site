@@ -2,17 +2,18 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import { useReducedMotion, AnimatePresence, motion } from 'framer-motion';
 import {
   Bell,
   Flag,
   Globe,
   MapPin,
-  MessageSquare,
+  ExternalLink,
 } from 'lucide-react';
 import { getPopularPolls } from '../lib/api';
 import { POLL_MOCKS } from '../lib/poll-mocks';
 import type { Poll, PollScope } from '../types/poll';
+import { trackEvent } from '@/lib/gtm';
+import { openDeepLink, getDeeplinkUrl } from '@/lib/deeplink';
 
 const TABS: { id: PollScope; label: string; icon: typeof Globe }[] = [
   { id: 'internacional', label: 'Internacional', icon: Globe },
@@ -20,15 +21,7 @@ const TABS: { id: PollScope; label: string; icon: typeof Globe }[] = [
   { id: 'regional', label: 'Regional', icon: MapPin },
 ];
 
-const ROTATION_INTERVAL_MS = 5000;
-
-function formatCount(value: number): string {
-  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
-  if (value >= 1_000) return `${(value / 1_000).toFixed(1)}K`;
-  return String(value);
-}
-
-function PollSlide({ poll }: { poll: Poll }) {
+function PollCard({ poll }: { poll: Poll }) {
   const totalVotes = useMemo(
     () => poll.options.reduce((sum, opt) => sum + (opt.votesCount || 0), 0),
     [poll.options],
@@ -36,56 +29,68 @@ function PollSlide({ poll }: { poll: Poll }) {
   const visibleOptions = poll.options.slice(0, 2);
 
   return (
-    <div className="bg-white/[0.02] rounded-xl p-3 border border-white/5">
-      <p className="text-white text-sm font-medium mb-3 line-clamp-2">
-        {poll.question}
-      </p>
+    <div className="bg-white/[0.03] rounded-xl p-3 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+      <div>
+        <p className="text-white text-xs sm:text-sm font-medium mb-3 line-clamp-2 leading-snug">
+          {poll.question}
+        </p>
 
-      <div className="space-y-2 mb-3">
-        {visibleOptions.map((option) => {
-          const percentage =
-            totalVotes > 0 ? Math.round((option.votesCount / totalVotes) * 100) : 0;
-          return (
-            <div key={option.id} className="space-y-1">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-white/90 truncate pr-2">{option.content}</span>
-                <span className="text-gray-300 tabular-nums font-medium">{percentage}%</span>
+        <div className="space-y-2 mb-3">
+          {visibleOptions.map((option) => {
+            const percentage =
+              totalVotes > 0 ? Math.round((option.votesCount / totalVotes) * 100) : 0;
+            return (
+              <div key={option.id} className="space-y-1">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-white/90 truncate pr-2 text-[11px] sm:text-xs">{option.content}</span>
+                  <span className="text-gray-300 tabular-nums font-medium text-[11px] sm:text-xs">{percentage}%</span>
+                </div>
+                <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                  <div
+                    className="h-full bg-white/90 rounded-full transition-all"
+                    style={{ width: `${percentage}%` }}
+                  />
+                </div>
               </div>
-              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
-                <div
-                  className="h-full bg-white/90 rounded-full transition-all"
-                  style={{ width: `${percentage}%` }}
-                />
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
-      <div className="flex items-center gap-3 text-xs text-gray-400">
-        <span className="tabular-nums font-medium">{formatCount(totalVotes)} votos</span>
-        <span className="flex items-center gap-1 ml-auto">
-          <MessageSquare size={12} />
-          {formatCount(poll.post?.commentsCount ?? 0)}
-        </span>
-      </div>
+      <button
+        type="button"
+        onClick={() => {
+          const postId = poll.post?.id || poll.id;
+          trackEvent('click_poll_ver_no_app', { poll_id: postId });
+          openDeepLink({
+            deepLink: `kratikos://post?data=${postId}`,
+            fallbackUrl: getDeeplinkUrl(`/post?data=${postId}`),
+          });
+        }}
+        className="w-full mt-2 py-2 px-3 bg-white text-black text-xs font-semibold rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Ver no app <ExternalLink size={12} />
+      </button>
     </div>
   );
 }
 
 function SlideSkeleton() {
   return (
-    <div className="bg-white/[0.02] rounded-xl p-3 border border-white/5 animate-pulse">
-      <div className="h-3 w-3/4 rounded bg-white/10 mb-2" />
-      <div className="h-3 w-2/3 rounded bg-white/10 mb-4" />
-      <div className="space-y-2 mb-3">
-        <div className="h-1.5 w-full rounded-full bg-white/10" />
-        <div className="h-1.5 w-full rounded-full bg-white/10" />
-      </div>
-      <div className="flex justify-between">
-        <div className="h-2.5 w-12 rounded bg-white/10" />
-        <div className="h-2.5 w-8 rounded bg-white/10" />
-      </div>
+    <div className="space-y-3">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="bg-white/[0.02] rounded-xl p-3 border border-white/5 animate-pulse min-h-[140px] flex flex-col justify-between">
+          <div>
+            <div className="h-3 w-3/4 rounded bg-white/10 mb-2" />
+            <div className="h-3 w-2/3 rounded bg-white/10 mb-3" />
+            <div className="space-y-2">
+              <div className="h-1.5 w-full rounded-full bg-white/10" />
+              <div className="h-1.5 w-full rounded-full bg-white/10" />
+            </div>
+          </div>
+          <div className="h-7 w-full rounded bg-white/10 mt-3" />
+        </div>
+      ))}
     </div>
   );
 }
@@ -95,21 +100,16 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
   const cachedPolls = useRef<Partial<Record<PollScope, Poll[]>>>(prefetchedPolls || {});
   const [polls, setPolls] = useState<Poll[]>(() => cachedPolls.current['internacional'] || POLL_MOCKS.internacional);
   const [loading, setLoading] = useState(!cachedPolls.current['internacional']);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (cachedPolls.current[activeScope]) {
       setPolls(cachedPolls.current[activeScope]!);
       setLoading(false);
-      setActiveIndex(0);
       return;
     }
 
     const controller = new AbortController();
     setLoading(true);
-    setActiveIndex(0);
 
     getPopularPolls(activeScope, 3, controller.signal)
       .then((result) => {
@@ -133,29 +133,13 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
     return () => controller.abort();
   }, [activeScope]);
 
-  const slideCount = polls.length;
-  const shouldRotate = !shouldReduceMotion && !loading && !isHovering && slideCount > 1;
-
-  useEffect(() => {
-    if (!shouldRotate) return;
-    const id = window.setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % slideCount);
-    }, ROTATION_INTERVAL_MS);
-    return () => window.clearInterval(id);
-  }, [shouldRotate, slideCount]);
-
-  const directionRef = useRef(1);
-  const handleDotClick = (index: number) => {
-    directionRef.current = index > activeIndex ? 1 : -1;
-    setActiveIndex(index);
+  const handleScopeChange = (scope: PollScope) => {
+    setActiveScope(scope);
+    trackEvent('select_poll_scope', { scope });
   };
 
   return (
-    <div
-      className="relative mx-auto w-[280px] sm:w-[320px] h-[580px] sm:h-[640px] bg-black rounded-[3rem] border-2 border-white/10 shadow-2xl overflow-hidden"
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-    >
+    <div className="relative mx-auto w-[280px] sm:w-[320px] h-[580px] sm:h-[640px] bg-black rounded-[3rem] border-2 border-white/10 shadow-2xl overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-2xl z-10" />
 
       <div className="absolute inset-2 rounded-[2.5rem] bg-[#1d1d1d] overflow-hidden border border-white/5 flex flex-col">
@@ -185,7 +169,7 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
                 aria-selected={isActive}
                 aria-controls={`panel-${tab.id}`}
                 id={`tab-${tab.id}`}
-                onClick={() => setActiveScope(tab.id)}
+                onClick={() => handleScopeChange(tab.id)}
                 className={`min-h-[44px] flex-1 py-2 px-2 text-center text-xs sm:text-sm font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 ${
                   isActive
                     ? 'text-white border-b-2 border-white'
@@ -198,41 +182,13 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
           })}
         </div>
 
-        <div className="flex-1 p-3 flex flex-col" role="tabpanel" id={`panel-${activeScope}`} aria-labelledby={`tab-${activeScope}`}>
-          <div className="relative flex-1">
-            {loading || slideCount === 0 ? (
-              <SlideSkeleton />
-            ) : (
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={polls[activeIndex]?.id ?? activeIndex}
-                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 24 * directionRef.current }}
-                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
-                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -24 * directionRef.current }}
-                  transition={{ duration: shouldReduceMotion ? 0.1 : 0.35, ease: 'easeOut' }}
-                >
-                  <PollSlide poll={polls[activeIndex]} />
-                </motion.div>
-              </AnimatePresence>
-            )}
-          </div>
-
-          {slideCount > 1 && !loading && (
-            <div className="flex items-center justify-center gap-1 pt-2">
-              {polls.map((poll, index) => (
-                <button
-                  key={poll.id}
-                  type="button"
-                  aria-label={`Ir para enquete ${index + 1}`}
-                  onClick={() => handleDotClick(index)}
-                  className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-lg"
-                >
-                  <span className={`block h-1.5 rounded-full transition-all ${
-                    index === activeIndex
-                      ? 'w-5 bg-white'
-                      : 'w-2 bg-white/30 group-hover:bg-white/50'
-                  }`} />
-                </button>
+        <div className="flex-1 p-3 overflow-hidden flex flex-col" role="tabpanel" id={`panel-${activeScope}`} aria-labelledby={`tab-${activeScope}`}>
+          {loading ? (
+            <SlideSkeleton />
+          ) : (
+            <div className="flex-1 overflow-y-auto space-y-3 pr-1 scrollbar-thin">
+              {polls.map((poll) => (
+                <PollCard key={poll.id} poll={poll} />
               ))}
             </div>
           )}

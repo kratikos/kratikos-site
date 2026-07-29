@@ -11,7 +11,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   className?: string;
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
@@ -70,7 +70,7 @@ export default function Button({
           size={shadcnSize}
           className={cn("rounded-xl font-semibold gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black", className)}
         >
-          <Link href={href}>
+          <Link href={href} onClick={onClick}>
             {buttonContent}
           </Link>
         </ShadcnButton>
