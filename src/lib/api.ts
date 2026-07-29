@@ -108,11 +108,11 @@ export async function getPlatformStats(): Promise<PlatformStats> {
     const data = body?.data ?? body;
 
     return {
-      todayVotes: Number(data.todayVotes ?? data.today_votes ?? fallbackStats.todayVotes),
+      todayVotes: Number(data.votesToday ?? data.todayVotes ?? data.votes_today ?? data.today_votes ?? fallbackStats.todayVotes),
       activeUsers: Number(data.activeUsers ?? data.active_users ?? fallbackStats.activeUsers),
-      engagementPercentage: Number(data.engagementPercentage ?? data.engagement_percentage ?? fallbackStats.engagementPercentage),
-      totalVotes: Number(data.totalVotes ?? data.total_votes ?? fallbackStats.totalVotes),
-      totalDiscussions: Number(data.totalDiscussions ?? data.total_discussions ?? fallbackStats.totalDiscussions),
+      engagementPercentage: Number(data.engagementRate ?? data.engagementPercentage ?? data.engagement_rate ?? data.engagement_percentage ?? fallbackStats.engagementPercentage),
+      totalVotes: Number(data.registeredVotes ?? data.totalVotes ?? data.registered_votes ?? data.total_votes ?? fallbackStats.totalVotes),
+      totalDiscussions: Number(data.discussionsCreated ?? data.totalDiscussions ?? data.discussions_created ?? data.total_discussions ?? fallbackStats.totalDiscussions),
     };
   } catch {
     return fallbackStats;
