@@ -2,11 +2,11 @@ import { trackEvent } from './gtm';
 
 export const APP_STORE_URL =
   process.env.NEXT_PUBLIC_APP_STORE_URL ||
-  'https://apps.apple.com/app/kratikos/id6740000000';
+  'https://apps.apple.com/us/app/kratikos/id6755405905';
 
 export const PLAY_STORE_URL =
   process.env.NEXT_PUBLIC_PLAY_STORE_URL ||
-  'https://play.google.com/store/apps/details?id=br.com.kratikos.kratikos';
+  'https://play.google.com/store/apps/details?id=br.com.kratikos.kratikos&hl=pt_BR';
 
 export const MAIN_SITE_URL = 'https://kratikos.com.br';
 
