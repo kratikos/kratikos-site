@@ -176,6 +176,7 @@ export default function HomeClient({
                     width={20}
                     height={20}
                     priority
+                    loading="eager"
                     fetchPriority="high"
                     className="h-5 w-5"
                   />
@@ -198,6 +199,7 @@ export default function HomeClient({
                     width={20}
                     height={20}
                     priority
+                    loading="eager"
                     fetchPriority="high"
                     className="h-5 w-5"
                   />
