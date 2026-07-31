@@ -9,7 +9,6 @@ import {
   MapPin,
   ExternalLink,
 } from 'lucide-react';
-import { getPopularPolls } from '../lib/api';
 import { POLL_MOCKS } from '../lib/poll-mocks';
 import type { Poll, PollScope } from '../types/poll';
 import { trackEvent } from '@/lib/gtm';
@@ -97,40 +96,17 @@ function SlideSkeleton() {
 
 export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls?: Partial<Record<PollScope, Poll[]>> } = {}) {
   const [activeScope, setActiveScope] = useState<PollScope>('internacional');
-  const cachedPolls = useRef<Partial<Record<PollScope, Poll[]>>>(prefetchedPolls || {});
-  const [polls, setPolls] = useState<Poll[]>(() => cachedPolls.current['internacional'] || POLL_MOCKS.internacional);
-  const [loading, setLoading] = useState(!cachedPolls.current['internacional']);
+
+  const cachedPolls = useRef<Record<PollScope, Poll[]>>({
+    internacional: prefetchedPolls?.internacional?.length ? prefetchedPolls.internacional : POLL_MOCKS.internacional,
+    nacional: prefetchedPolls?.nacional?.length ? prefetchedPolls.nacional : POLL_MOCKS.nacional,
+    regional: prefetchedPolls?.regional?.length ? prefetchedPolls.regional : POLL_MOCKS.regional,
+  });
+
+  const [polls, setPolls] = useState<Poll[]>(cachedPolls.current.internacional);
 
   useEffect(() => {
-    if (cachedPolls.current[activeScope]) {
-      setPolls(cachedPolls.current[activeScope]!);
-      setLoading(false);
-      return;
-    }
-
-    const controller = new AbortController();
-    setLoading(true);
-
-    getPopularPolls(activeScope, 3, controller.signal)
-      .then((result) => {
-        if (controller.signal.aborted) return;
-        const data = result.length > 0 ? result : POLL_MOCKS[activeScope];
-        cachedPolls.current[activeScope] = data;
-        setPolls(data);
-      })
-      .catch((err) => {
-        if (err?.name === 'AbortError') return;
-        const data = POLL_MOCKS[activeScope];
-        cachedPolls.current[activeScope] = data;
-        setPolls(data);
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      });
-
-    return () => controller.abort();
+    setPolls(cachedPolls.current[activeScope]);
   }, [activeScope]);
 
   const handleScopeChange = (scope: PollScope) => {
@@ -151,6 +127,9 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
               width={100}
               height={20}
               priority
+              loading="eager"
+              fetchPriority="high"
+              style={{ width: 'auto', height: 'auto' }}
               className="h-5 w-auto"
             />
           </div>
@@ -183,15 +162,11 @@ export default function PhonePollCarousel({ prefetchedPolls }: { prefetchedPolls
         </div>
 
         <div className="flex-1 p-3 overflow-hidden flex flex-col" role="tabpanel" id={`panel-${activeScope}`} aria-labelledby={`tab-${activeScope}`}>
-          {loading ? (
-            <SlideSkeleton />
-          ) : (
-            <div className="flex-1 overflow-y-auto space-y-3 pr-1 scrollbar-thin">
-              {polls.map((poll) => (
-                <PollCard key={poll.id} poll={poll} />
-              ))}
-            </div>
-          )}
+          <div className="flex-1 overflow-y-auto space-y-3 pr-1 scrollbar-thin">
+            {polls.map((poll) => (
+              <PollCard key={poll.id} poll={poll} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

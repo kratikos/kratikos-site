@@ -14,9 +14,11 @@ export async function getPopularPolls(
   if (scope) params.set('scope', scope);
   params.set('limit', String(limit));
 
+  const fetchSignal = signal || AbortSignal.timeout(3000);
+
   const response = await fetch(`${API_URL}/polls/popular?${params.toString()}`, {
     headers: { Accept: 'application/json' },
-    signal,
+    signal: fetchSignal,
     next: { revalidate: 600 } // Cache for 10 minutes
   });
 
@@ -100,6 +102,7 @@ export async function getPlatformStats(): Promise<PlatformStats> {
   try {
     const response = await fetch(`${API_URL}/stats`, {
       headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(3000),
       next: { revalidate: 600 }, // Mantem dados em cache por 10 minutos
     });
 

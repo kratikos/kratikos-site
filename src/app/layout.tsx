@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { League_Spartan } from 'next/font/google';
-import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
-import { SubdomainCorrector } from '@/components';
+import { SubdomainCorrector, OptimizedGTM } from '@/components';
 
 
 export const viewport: Viewport = {
@@ -115,14 +114,13 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className="min-h-screen bg-black flex flex-col">
-        {gtmId && <GoogleTagManager gtmId={gtmId} />}
+        {gtmId && <OptimizedGTM gtmId={gtmId} />}
         <SubdomainCorrector />
         {children}
       </body>

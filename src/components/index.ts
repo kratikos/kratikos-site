@@ -7,4 +7,5 @@ export { default as PhonePollCarousel } from './phone-poll-carousel';
 export { default as ScopeCard } from './scope-card';
 export { default as StatsCounter } from './stats-counter';
 export { default as SubdomainCorrector } from './subdomain-corrector';
+export { OptimizedGTM } from './gtm-script';
 
