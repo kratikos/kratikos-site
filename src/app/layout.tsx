@@ -115,8 +115,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://kratikos-dev-backend-development.up.railway.app" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://kratikos-dev-backend-development.up.railway.app" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <script
           type="application/ld+json"

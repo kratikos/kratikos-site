@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import HowItWorksClient from './como-funciona-client';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: 'Como Funciona',

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import FeaturesClient from './recursos-client';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: 'Recursos e Funcionalidades',

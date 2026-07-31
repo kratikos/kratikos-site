@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import AboutClient from './sobre-client';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: 'Sobre Nós',

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ContactClient from './contato-client';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: 'Contato',

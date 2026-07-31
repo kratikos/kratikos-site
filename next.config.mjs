@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+  },
   allowedDevOrigins: ['192.168.0.125', 'localhost', 'refreeze-cartridge-flaxseed.ngrok-free.dev'],
   async headers() {
     return [

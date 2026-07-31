@@ -1,6 +1,7 @@
 import { getPopularPolls, getPlatformStats } from '@/lib/api';
 import HomeClient from './page-client';
 import type { Metadata } from 'next';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: {
