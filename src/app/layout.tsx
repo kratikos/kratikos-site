@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { League_Spartan } from 'next/font/google';
 import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
-import { Header, Footer, SubdomainCorrector } from '@/components';
+import { SubdomainCorrector } from '@/components';
 
 
 export const viewport: Viewport = {
@@ -115,6 +115,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="preconnect" href="https://kratikos-dev-backend-development.up.railway.app" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://kratikos-dev-backend-development.up.railway.app" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -123,11 +126,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-black flex flex-col">
         {gtmId && <GoogleTagManager gtmId={gtmId} />}
         <SubdomainCorrector />
-        <Header />
-        <div className="flex-1">
-          {children}
-        </div>
-        <Footer />
+        {children}
       </body>
     </html>
   );

@@ -105,14 +105,10 @@ export default function AboutClient() {
               animate={{ opacity: 1, x: 0 }}
             >
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Sobre o Kratikos:
-                <br />
-                Engajamento Cívico e Democracia
+                Sobre o Kratikos: toda opinião conta
               </h1>
               <p className="text-lg text-gray-400 leading-relaxed mb-8">
-                O Kratikos nasceu da crença de que a tecnologia pode fortalecer a democracia.
-                Nossa missão é dar voz a cada cidadão, conectando pessoas a discussões que
-                realmente importam — do bairro ao mundo.
+                O nome Kratikos vem do grego e remete à ideia de participação do cidadão — a crença de que a tecnologia pode dar mais espaço para a voz das pessoas. Foi esse espírito que nos guiou, mas ampliamos o propósito: o Kratikos não é sobre um único tema, é sobre todos os assuntos que fazem parte da vida em sociedade. Aqui você vota, comenta e descobre o que as pessoas pensam sobre política, economia, esportes, entretenimento e o que acontece no seu bairro, no seu país e no mundo.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button variant="primary" href="/contato">
@@ -168,8 +164,7 @@ export default function AboutClient() {
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Nossa Missão</h3>
               <p className="text-gray-400 leading-relaxed">
-                Democratizar o acesso ao debate público, permitindo que cada cidadão
-                participe ativamente das discussões que moldam seu futuro.
+                Dar espaço para que qualquer pessoa participe ativamente das discussões que importam para ela — em política, economia, esportes, entretenimento e no dia a dia da sua comunidade.
               </p>
             </motion.div>
 
@@ -185,8 +180,7 @@ export default function AboutClient() {
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Nossa Visão</h3>
               <p className="text-gray-400 leading-relaxed">
-                Um mundo onde a distância entre cidadãos e decisões políticas seja
-                eliminada pela tecnologia e participação ativa.
+                Um espaço onde é fácil descobrir o que a sociedade realmente pensa sobre qualquer assunto, com opiniões visíveis e acessíveis para todos.
               </p>
             </motion.div>
 
@@ -202,8 +196,7 @@ export default function AboutClient() {
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Nosso Propósito</h3>
               <p className="text-gray-400 leading-relaxed">
-                Criar pontes entre pessoas, comunidades e governos através de
-                diálogos construtivos e engajamento genuíno.
+                Conectar pessoas através da opinião — criando um lugar onde comentar, votar e debater é simples, direto e sem barreiras.
               </p>
             </motion.div>
           </div>
@@ -320,10 +313,10 @@ export default function AboutClient() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              Quer fazer parte dessa história?
+              Quer participar?
             </h2>
             <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
-              Baixe o Kratikos e comece a participar de discussões que moldam o futuro.
+              Baixe o Kratikos e comece a votar, comentar e descobrir o que a sociedade pensa.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
