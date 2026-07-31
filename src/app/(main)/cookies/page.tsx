@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: 'Kratikos',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Política de Cookies - Kratikos',
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Política de Cookies',
-    description: 'Informações sobre como utilizaremos cookies no Kratikos.',
-    images: ['/seo/ogimage.webp'],
+    title: 'Política de Cookies - Kratikos',
+    description: 'Saiba como o Kratikos utiliza cookies.',
+    images: ['/twitter-image'],
   },
 };
 

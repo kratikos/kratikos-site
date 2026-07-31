@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Como o Kratikos Funciona',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Como Funciona o Kratikos',
     description: 'Participe do engajamento cívico em nível local e global.',
-    images: ['/seo/ogimage.webp'],
+    images: ['/twitter-image'],
   },
 };
 

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: 'Kratikos',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Kratikos - Sua voz digital',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Kratikos - Sua voz digital',
     description: 'A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.',
-    images: ['/seo/ogimage.webp'],
+    images: ['/twitter-image'],
   },
 };
 

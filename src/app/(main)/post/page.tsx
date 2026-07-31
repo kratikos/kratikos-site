@@ -50,7 +50,7 @@ export async function generateMetadata({
     : `${DEEP_LINK_ORIGIN}/post`;
   const ogImageUrl = data
     ? `${DEEP_LINK_ORIGIN}/post/og-image?data=${encodeURIComponent(data)}`
-    : `${DEEP_LINK_ORIGIN}/seo/ogimage.webp`;
+    : `${DEEP_LINK_ORIGIN}/opengraph-image`;
 
   const images = presentation.image ? [presentation.image] : [ogImageUrl];
 

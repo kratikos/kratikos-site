@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Recursos do Kratikos',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Recursos e Funcionalidades do Kratikos',
     description: 'Ferramentas pensadas para potencializar o engajamento cívico.',
-    images: ['/seo/ogimage.webp'],
+    images: ['/twitter-image'],
   },
 };
 

@@ -13,18 +13,18 @@ export const metadata: Metadata = {
     siteName: 'Kratikos',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Recursos - Kratikos',
+        alt: 'Recursos do Kratikos',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Recursos | Kratikos',
-    description: 'Descubra os recursos do Kratikos: votação transparente, geolocalização e mais.',
-    images: ['/seo/ogimage.webp'],
+    title: 'Recursos e Funcionalidades do Kratikos',
+    description: 'Ferramentas pensadas para potencializar o engajamento cívico.',
+    images: ['/twitter-image'],
   },
 };
 

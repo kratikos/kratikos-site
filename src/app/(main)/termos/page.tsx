@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: 'Kratikos',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Termos de Uso - Kratikos',
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Termos de Uso',
-    description: 'Termos e condições de uso da plataforma Kratikos.',
-    images: ['/seo/ogimage.webp'],
+    title: 'Termos de Uso - Kratikos',
+    description: 'Leia os termos de uso do Kratikos.',
+    images: ['/twitter-image'],
   },
 };
 

@@ -13,18 +13,18 @@ export const metadata: Metadata = {
     siteName: 'Kratikos',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Como Funciona - Kratikos',
+        alt: 'Como o Kratikos Funciona',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Como Funciona | Kratikos',
-    description: 'Entenda como o Kratikos funciona. Baixe o app e participe de discussões.',
-    images: ['/seo/ogimage.webp'],
+    title: 'Como Funciona - Kratikos',
+    description: 'Aprenda como utilizar a plataforma Kratikos e fazer sua voz ser ouvida.',
+    images: ['/twitter-image'],
   },
 };
 
