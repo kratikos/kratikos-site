@@ -146,9 +146,7 @@ export default function HomeClient({
               variants={fadeInUp}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
             >
-              Kratikos: Sua voz na
-              <br />
-              <span className="text-white">democracia e engajamento cívico</span>
+              Kratikos: sua voz digital
             </motion.h1>
 
             {/* Subheadline */}
@@ -156,8 +154,7 @@ export default function HomeClient({
               variants={fadeInUp}
               className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed"
             >
-              Participe de discussões políticas e sociais que impactam seu bairro, 
-              seu país e o mundo. Vote, comente e faça a diferença.
+              A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.
             </motion.p>
 
             {/* CTAs */}
@@ -283,7 +280,7 @@ export default function HomeClient({
               Discussões em três níveis
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Do global ao local. Participe de debates que impactam diferentes escalas geográficas.
+              Participe de enquetes e debates em diferentes escalas — do que é notícia lá fora ao que acontece perto de você.
             </p>
           </motion.div>
 
@@ -292,21 +289,21 @@ export default function HomeClient({
               icon={<Globe size={32} />}
               subtitle="Debates globais"
               title="Internacional"
-              description="Acompanhe e participe de discussões sobre temas mundiais: clima, economia global, geopolítica e direitos humanos."
+              description="Crie e acompanhe enquetes sobre política internacional, economia global, entretenimento e os temas que estão em pauta no mundo todo."
               delay={0}
             />
             <ScopeCard
               icon={<Flag size={32} />}
-              subtitle="Política nacional"
+              subtitle="Sua opinião sobre o Brasil"
               title="Nacional"
-              description="Debata sobre legislação, eleições, políticas públicas e temas que afetam todo o Brasil."
+              description="Descubra, vote e comente sobre eleições, economia, esportes e os assuntos que estão sendo discutidos em todo o país."
               delay={0.1}
             />
             <ScopeCard
               icon={<MapPin size={32} />}
               subtitle="Sua comunidade"
               title="Regional"
-              description="Discussões geolocalizadas sobre sua cidade e região. Problemas locais, soluções coletivas."
+              description="Enquetes e discussões geolocalizadas sobre sua cidade e região — do trânsito ao time da sua cidade, do que afeta o seu bairro."
               delay={0.2}
             />
           </div>
@@ -337,7 +334,7 @@ export default function HomeClient({
               Recursos poderosos
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Ferramentas pensadas para potencializar o engajamento cívico.
+              Tudo o que você precisa para opinar, votar e acompanhar o que a sociedade pensa.
             </p>
           </motion.div>
 
@@ -345,37 +342,37 @@ export default function HomeClient({
             <FeatureCard
               icon={<Vote size={28} />}
               title="Sistema de Votação"
-              description="Vote positiva ou negativamente em posts. Sua opinião ajuda a destacar os temas mais relevantes."
+              description="Vote a favor ou contra em qualquer post. Sua opinião ajuda a destacar os temas mais relevantes."
               delay={0}
             />
             <FeatureCard
               icon={<MapPin size={28} />}
               title="Geolocalização"
-              description="Posts regionais são exibidos baseados na sua localização, conectando você à sua comunidade."
+              description="Veja o que está sendo discutido perto de você e acompanhe os assuntos da sua região."
               delay={0.1}
             />
             <FeatureCard
               icon={<TrendingUp size={28} />}
               title="Rankings"
-              description="Veja os temas mais discutidos, usuários mais engajados e tendências em tempo real."
+              description="Descubra os temas mais discutidos, quem mais participa e o que está em alta agora."
               delay={0.2}
             />
             <FeatureCard
               icon={<Shield size={28} />}
               title="Moderação"
-              description="Sistema de moderação robusto para manter as discussões saudáveis e produtivas."
+              description="Discussões saudáveis e organizadas, com moderação ativa contra abusos."
               delay={0.3}
             />
             <FeatureCard
               icon={<MessageSquare size={28} />}
               title="Comentários"
-              description="Aprofunde o debate com comentários estruturados e sistema de respostas."
+              description="Vá além do voto: comente, responda e participe do debate."
               delay={0.4}
             />
             <FeatureCard
               icon={<Users size={28} />}
               title="Comunidade"
-              description="Siga outros usuários, crie conexões e fortaleça sua rede de engajamento."
+              description="Siga outras pessoas, acompanhe como elas pensam e construa sua rede no Kratikos."
               delay={0.5}
             />
           </div>
@@ -395,12 +392,10 @@ export default function HomeClient({
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Pronto para fazer
-              <br />
-              sua voz ser ouvida?
+              Pronto para participar?
             </h2>
             <p className="text-gray-400 text-lg max-w-xl mx-auto mb-10">
-              Baixe o Kratikos gratuitamente e comece a participar das discussões que moldam o futuro.
+              Baixe o Kratikos gratuitamente e comece a votar, comentar e descobrir o que as pessoas realmente pensam.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

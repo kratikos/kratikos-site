@@ -1,16 +1,16 @@
-import { getPopularPolls, getPlatformStats } from '../lib/api';
+import { getPopularPolls, getPlatformStats } from '@/lib/api';
 import HomeClient from './page-client';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Kratikos - A sua voz na política',
-  description: 'Descubra os principais debates políticos em nível internacional, nacional e regional na plataforma Kratikos.',
+  title: 'Kratikos: sua voz digital',
+  description: 'A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Kratikos - A sua voz na política',
-    description: 'Descubra os principais debates políticos em nível internacional, nacional e regional.',
+    title: 'Kratikos: sua voz digital',
+    description: 'A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.',
     url: '/',
     siteName: 'Kratikos',
     images: [
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
         url: '/seo/ogimage.webp',
         width: 1200,
         height: 630,
-        alt: 'Kratikos - A sua voz na política',
+        alt: 'Kratikos: sua voz digital',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kratikos - A sua voz na política',
-    description: 'Descubra os principais debates políticos em nível internacional, nacional e regional.',
+    title: 'Kratikos: sua voz digital',
+    description: 'A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.',
     images: ['/seo/ogimage.webp'],
   },
 };

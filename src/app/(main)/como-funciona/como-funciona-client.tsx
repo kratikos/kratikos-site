@@ -8,10 +8,9 @@ import {
   ThumbsUp,
   MessageSquare,
   TrendingUp,
-  ChevronRight,
   CheckCircle2,
 } from 'lucide-react';
-import { Button } from "@/components";
+import { Button, Faq } from "@/components";
 import { trackEvent } from "@/lib/gtm";
 import { openDeepLink } from "@/lib/deeplink";
 
@@ -35,7 +34,7 @@ const steps = [
   {
     number: '03',
     icon: <Globe size={28} />,
-    title: 'Escolha o Escopo',
+    title: 'Escolha o Alcance',
     description:
       'Navegue entre discussões internacionais, nacionais ou regionais baseadas na sua localização.',
     details: ['3 níveis de discussão', 'Filtros por tema', 'Localização automática'],
@@ -53,7 +52,7 @@ const steps = [
     icon: <MessageSquare size={28} />,
     title: 'Comente e Debata',
     description:
-      'Aprofunde discussões com comentários estruturados. Responda e interaja com outros cidadãos.',
+      'Aprofunde discussões com comentários estruturados. Responda e interaja com outros usuários.',
     details: ['Threads organizadas', 'Menções de usuários', 'Notificações em tempo real'],
   },
   {
@@ -62,50 +61,9 @@ const steps = [
     title: 'Acompanhe Tendências',
     description:
       'Veja os temas em alta, rankings de engajamento e métricas da comunidade.',
-    details: ['Rankings em tempo real', 'Métricas transparentes', 'Insights personalizados'],
+    details: ['Rankings em tempo real', 'Métricas transparentes', 'Recomendações personalizadas'],
   },
 ];
-
-const faq = [
-  {
-    question: 'O Kratikos é gratuito?',
-    answer:
-      'Sim! O Kratikos é 100% gratuito para baixar e usar. Não há anúncios nem compras dentro do app.',
-  },
-  {
-    question: 'Como funciona a moderação?',
-    answer:
-      'Combinamos moderação automática com uma equipe de moderadores humanos. Usuários também podem reportar conteúdos inadequados.',
-  },
-  {
-    question: 'Meus dados são protegidos?',
-    answer:
-      'Absolutamente. Seguimos a LGPD e as melhores práticas de privacidade. Seus dados nunca são vendidos ou compartilhados.',
-  },
-  {
-    question: 'Posso usar sem revelar minha localização?',
-    answer:
-      'Sim. A localização só é usada para posts regionais e você pode desativar a qualquer momento. Discussões internacionais e nacionais não requerem localização.',
-  },
-  {
-    question: 'Como são calculados os rankings?',
-    answer:
-      'Os rankings consideram votos, comentários, frequência de participação e qualidade das contribuições, sempre de forma transparente.',
-  },
-];
-
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
-  })),
-};
 
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -131,7 +89,7 @@ export default function HowItWorksClient() {
     <main className="pt-24">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([faqJsonLd, breadcrumbJsonLd]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Hero */}
       <section className="relative py-16 lg:py-24">
@@ -146,9 +104,7 @@ export default function HowItWorksClient() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Como o Kratikos Funciona:
-              <br />
-              Plataforma de Engajamento Cívico
+              Como o Kratikos Funciona: sua opinião em poucos passos
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed">
               Em poucos minutos você estará participando de discussões que importam.
@@ -225,7 +181,7 @@ export default function HowItWorksClient() {
               Pronto para começar?
             </h2>
             <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">
-              Junte-se a milhares de cidadãos que já estão fazendo suas vozes serem ouvidas.
+              Junte-se a quem já está participando das discussões que movem a sociedade.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
@@ -274,47 +230,7 @@ export default function HowItWorksClient() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Perguntas Frequentes
-            </h2>
-            <p className="text-gray-500">
-              Tire suas dúvidas sobre o Kratikos.
-            </p>
-          </motion.div>
-
-          <div className="space-y-4">
-            {faq.map((item, index) => (
-              <motion.details
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group glass rounded-2xl overflow-hidden"
-              >
-                <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                  <span className="text-white font-semibold pr-4">{item.question}</span>
-                  <ChevronRight
-                    size={20}
-                    className="text-gray-500 transition-transform group-open:rotate-90 shrink-0"
-                  />
-                </summary>
-                <div className="px-6 pb-6 text-gray-500 leading-relaxed">
-                  {item.answer}
-                </div>
-              </motion.details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Faq />
     </main>
   );
 }

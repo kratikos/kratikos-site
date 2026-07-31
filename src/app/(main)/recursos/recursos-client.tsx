@@ -26,7 +26,7 @@ const mainFeatures = [
     icon: <Vote size={32} />,
     title: 'Sistema de Votação Transparente',
     description:
-      'Vote positivamente, negativamente ou pule posts. Cada voto conta e ajuda a definir a relevância do conteúdo. Sistema anti-fraude com device fingerprinting garante a integridade.',
+      'Vote positivamente, negativamente ou pule o conteúdo. Cada voto ajuda a definir a relevância do que é mostrado na plataforma. Um sistema de proteção contra fraude identifica votos duplicados e mantém os resultados confiáveis.',
     details: [
       { icon: <ThumbsUp size={16} />, text: 'Votos positivos para concordar' },
       { icon: <ThumbsDown size={16} />, text: 'Votos negativos para discordar' },
@@ -37,7 +37,7 @@ const mainFeatures = [
     icon: <MapPin size={32} />,
     title: 'Posts Geolocalizados',
     description:
-      'Discussões regionais usam a fórmula de Haversine para mostrar posts relevantes baseados na sua localização. Defina um raio de alcance e conecte-se com sua comunidade local.',
+      'Discussões regionais mostram posts relevantes com base na sua localização. Defina um raio de alcance e conecte-se com o que está sendo discutido na sua comunidade.',
     details: [
       { icon: <Globe size={16} />, text: 'Alcance internacional' },
       { icon: <Flag size={16} />, text: 'Debates nacionais' },
@@ -48,7 +48,7 @@ const mainFeatures = [
     icon: <TrendingUp size={32} />,
     title: 'Rankings em Tempo Real',
     description:
-      'Acompanhe os temas mais discutidos, os posts mais votados e os usuários mais engajados. Métricas transparentes que refletem o pulso da comunidade.',
+      'Acompanhe os temas mais discutidos, os posts mais votados e os usuários mais engajados — métricas atualizadas que mostram o que está acontecendo na comunidade agora.',
     details: [
       { icon: <BarChart3 size={16} />, text: 'Métricas detalhadas' },
       { icon: <TrendingUp size={16} />, text: 'Tendências em alta' },
@@ -57,9 +57,9 @@ const mainFeatures = [
   },
   {
     icon: <Shield size={32} />,
-    title: 'Moderação Inteligente',
+    title: 'Moderação Ativa',
     description:
-      'Combinamos moderação humana com sistemas automatizados para manter discussões saudáveis. Reporte conteúdos inadequados e ajude a manter a qualidade.',
+      'Combinamos moderação humana com sistemas automatizados para manter as discussões saudáveis. Reporte conteúdos inadequados e ajude a manter a qualidade da comunidade.',
     details: [
       { icon: <Shield size={16} />, text: 'Filtros automáticos' },
       { icon: <Users size={16} />, text: 'Moderadores da comunidade' },
@@ -96,7 +96,7 @@ const additionalFeatures = [
   },
   {
     icon: <Zap size={24} />,
-    title: 'Performance',
+    title: 'Desempenho',
     description: 'App leve e rápido, otimizado para todos os dispositivos.',
   },
 ];
@@ -141,13 +141,10 @@ export default function FeaturesClient() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Recursos e Funcionalidades:
-              <br />
-              Empoderando Cidadãos na Democracia
+              Recursos e funcionalidades do Kratikos
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed">
-              Cada funcionalidade do Kratikos foi pensada para maximizar o engajamento
-              cívico e facilitar discussões produtivas sobre os temas que mais importam.
+              Cada funcionalidade foi criada para tornar a sua opinião visível — em votações, enquetes e discussões sobre os temas que mais importam para você.
             </p>
           </motion.div>
         </div>
@@ -215,10 +212,10 @@ export default function FeaturesClient() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              E muito mais
+              Mais recursos para você opinar melhor
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              Recursos adicionais que complementam sua experiência.
+              Recursos adicionais que completam sua experiência no Kratikos.
             </p>
           </motion.div>
 
