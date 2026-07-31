@@ -50,20 +50,20 @@ export async function generateOgImageResponse(data?: string) {
   const postTitle = post?.title?.trim();
   const postContent = post?.content?.trim();
 
-  // Título dinâmico da matéria/enquete
+  // Título dinâmico da matéria/enquete ou título padrão do site
   const title =
     postTitle ||
     pollQuestion ||
-    'Kratikos - A sua voz na política';
+    'Kratikos - Sua voz digital';
 
-  // Conteúdo dinâmico da matéria/enquete
+  // Conteúdo dinâmico da matéria/enquete ou descrição padrão do site
   const contentText =
     postContent ||
     post?.poll?.description?.trim() ||
-    'Descubra os principais debates políticos na plataforma Kratikos.';
+    'A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.';
 
-  const categoryName = post?.category?.name || 'Política';
-  const scope = post?.scope || 'internacional';
+  const categoryName = post ? (post?.category?.name || 'Política') : 'Rede Social de Opinião';
+  const scope = post ? (post?.scope || 'internacional') : 'Brasil & Mundo';
   const authorName = post?.author?.name || post?.author?.nickname || null;
 
   // Lógica de Votos e Porcentagem das Opções
@@ -73,15 +73,21 @@ export async function generateOgImageResponse(data?: string) {
     return sum + votes;
   }, 0);
 
-  const formattedOptions = rawOptions.slice(0, 2).map((opt) => {
-    const votes = Number(opt.votesCount ?? opt.votes_count ?? 0);
-    const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
-    return {
-      id: String(opt.id || opt.content),
-      content: String(opt.content || ''),
-      percentage,
-    };
-  });
+  const formattedOptions = post
+    ? rawOptions.slice(0, 2).map((opt) => {
+        const votes = Number(opt.votesCount ?? opt.votes_count ?? 0);
+        const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
+        return {
+          id: String(opt.id || opt.content),
+          content: String(opt.content || ''),
+          percentage: `${percentage}%`,
+        };
+      })
+    : [
+        { id: '1', content: 'Sistema de Votação Transparente', percentage: '' },
+        { id: '2', content: 'Posts Geolocalizados', percentage: '' },
+        { id: '3', content: 'Rankings em Tempo Real', percentage: '' },
+      ];
 
   // Lógica de Datas (Válido até DD/MM/YYYY vs Ativo desde DD/MM/YYYY)
   const rawPost = post as Record<string, unknown> | null;
@@ -108,8 +114,8 @@ export async function generateOgImageResponse(data?: string) {
   const formattedEndDate = formatDate(endDateRaw as string | null);
   const formattedStartDate = formatDate(startDateRaw as string | null) || formatDate(new Date());
 
-  const dateLabel = formattedEndDate ? 'Válido até' : 'Ativo desde';
-  const dateValue = formattedEndDate || formattedStartDate;
+  const dateLabel = post ? (formattedEndDate ? 'Válido até' : 'Ativo desde') : 'Plataforma';
+  const dateValue = post ? (formattedEndDate || formattedStartDate) : '100% Gratuito';
 
   return new ImageResponse(
     (
@@ -122,8 +128,6 @@ export async function generateOgImageResponse(data?: string) {
           justifyContent: 'space-between',
           alignItems: 'stretch',
           backgroundColor: '#111111',
-          backgroundImage:
-            'radial-gradient(circle at 90% 10%, rgba(40, 135, 249, 0.15), transparent 45%), radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.05), transparent 40%)',
           color: '#ffffff',
           padding: '48px',
           fontFamily: 'sans-serif',
@@ -277,7 +281,7 @@ export async function generateOgImageResponse(data?: string) {
             height: '100%',
             backgroundColor: 'rgba(255, 255, 255, 0.03)',
             borderRadius: '28px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: '2px solid rgba(255, 255, 255, 0.25)',
             padding: '28px',
             display: 'flex',
             flexDirection: 'column',
@@ -294,7 +298,7 @@ export async function generateOgImageResponse(data?: string) {
                 textTransform: 'uppercase',
               }}
             >
-              Enquete em destaque
+              {post ? 'Enquete em destaque' : 'Recursos da Plataforma'}
             </div>
             <div
               style={{
@@ -304,7 +308,7 @@ export async function generateOgImageResponse(data?: string) {
                 lineHeight: '1.35',
               }}
             >
-              {title}
+              {post ? title : 'Sua opinião visível e acessível'}
             </div>
 
             {/* Opções da enquete com Porcentagem de Votos */}
@@ -332,16 +336,18 @@ export async function generateOgImageResponse(data?: string) {
                         top: 0,
                         left: 0,
                         bottom: 0,
-                        width: `${opt.percentage}%`,
+                        width: opt.percentage ? opt.percentage : '100%',
                         backgroundColor: 'rgba(255, 255, 255, 0.08)',
                       }}
                     />
                     <span style={{ fontSize: '15px', color: '#ffffff', fontWeight: '500', zIndex: 1, flex: 1, paddingRight: '12px' }}>
                       {opt.content}
                     </span>
-                    <span style={{ fontSize: '15px', color: '#ffffff', fontWeight: '700', zIndex: 1 }}>
-                      {opt.percentage}%
-                    </span>
+                    {opt.percentage ? (
+                      <span style={{ fontSize: '15px', color: '#ffffff', fontWeight: '700', zIndex: 1 }}>
+                        {opt.percentage}
+                      </span>
+                    ) : null}
                   </div>
                 ))}
               </div>

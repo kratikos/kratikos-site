@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import {
   Mail,
   MapPin,
-  MessageSquare,
   Send,
   CheckCircle,
   Twitter,
@@ -27,12 +26,6 @@ const contactInfo = [
     title: 'Localização',
     value: 'São Paulo, Brasil',
     href: null,
-  },
-  {
-    icon: <MessageSquare size={24} />,
-    title: 'Suporte',
-    value: 'suporte@kratikos.com.br',
-    href: 'mailto:suporte@kratikos.com.br',
   },
 ];
 

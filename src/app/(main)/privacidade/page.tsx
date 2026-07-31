@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: 'Kratikos',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Política de Privacidade - Kratikos',
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Política de Privacidade',
-    description: 'Política de privacidade e proteção de dados LGPD da plataforma Kratikos.',
-    images: ['/seo/ogimage.webp'],
+    title: 'Política de Privacidade - Kratikos',
+    description: 'Saiba como o Kratikos protege seus dados.',
+    images: ['/twitter-image'],
   },
 };
 

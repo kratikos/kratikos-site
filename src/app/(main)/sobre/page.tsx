@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import AboutClient from './sobre-client';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: 'Sobre Nós',
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Sobre o Kratikos',
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Sobre o Kratikos',
     description: 'Conheça nossa missão e visão para o engajamento cívico.',
-    images: ['/seo/ogimage.webp'],
+    images: ['/twitter-image'],
   },
 };
 

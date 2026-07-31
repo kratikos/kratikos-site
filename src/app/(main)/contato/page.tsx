@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ContactClient from './contato-client';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: 'Contato',
@@ -15,18 +16,18 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Contato Kratikos',
+        alt: 'Contato - Kratikos',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contato',
-    description: 'Fale com a equipe do Kratikos.',
-    images: ['/seo/ogimage.webp'],
+    title: 'Fale Conosco - Kratikos',
+    description: 'Entre em contato com a equipe Kratikos.',
+    images: ['/twitter-image'],
   },
 };
 

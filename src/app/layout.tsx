@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     siteName: 'Kratikos',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Kratikos - Engajamento Democrático',
+        alt: 'Kratikos - Sua voz digital',
       },
     ],
   },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Kratikos - Engajamento Democrático',
     description: 'Plataforma de engajamento democrático. Participe de discussões políticas e sociais.',
-    images: ['/seo/ogimage.webp'],
+    images: ['/twitter-image'],
   },
   manifest: '/site.webmanifest',
   icons: {
@@ -115,8 +115,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://kratikos-dev-backend-development.up.railway.app" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://kratikos-dev-backend-development.up.railway.app" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <script
           type="application/ld+json"

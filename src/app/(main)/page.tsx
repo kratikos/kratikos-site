@@ -1,32 +1,35 @@
 import { getPopularPolls, getPlatformStats } from '@/lib/api';
 import HomeClient from './page-client';
 import type { Metadata } from 'next';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: 'Kratikos: sua voz digital',
+  title: {
+    absolute: 'Kratikos - Sua voz digital',
+  },
   description: 'A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Kratikos: sua voz digital',
+    title: 'Kratikos - Sua voz digital',
     description: 'A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.',
     url: '/',
     siteName: 'Kratikos',
     images: [
       {
-        url: '/seo/ogimage.webp',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Kratikos: sua voz digital',
+        alt: 'Kratikos - Sua voz digital',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kratikos: sua voz digital',
+    title: 'Kratikos - Sua voz digital',
     description: 'A rede social de opinião onde você vota, comenta e descobre o que a sociedade pensa sobre política, economia, esportes e mais.',
-    images: ['/seo/ogimage.webp'],
+    images: ['/twitter-image'],
   },
 };
 
