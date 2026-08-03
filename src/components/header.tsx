@@ -13,9 +13,10 @@ import { handleSmartDownloadClick } from '@/lib/deeplink';
 
 const navLinks = [
   { name: 'Início', path: '/' },
-  { name: 'Recursos', path: '/recursos' },
   { name: 'Como Funciona', path: '/como-funciona' },
+  { name: 'Recursos', path: '/recursos' },
   { name: 'Sobre', path: '/sobre' },
+  { name: 'Ajuda', path: '/ajuda' },
   { name: 'Contato', path: '/contato' },
 ];
 

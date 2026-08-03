@@ -10,7 +10,7 @@ import {
   TrendingUp,
   CheckCircle2,
 } from 'lucide-react';
-import { Button, Faq } from "@/components";
+import { Button } from "@/components";
 import { trackEvent } from "@/lib/gtm";
 import { openDeepLink } from "@/lib/deeplink";
 
@@ -228,9 +228,6 @@ export default function HowItWorksClient() {
           </motion.div>
         </div>
       </section>
-
-      {/* FAQ */}
-      <Faq />
     </main>
   );
 }

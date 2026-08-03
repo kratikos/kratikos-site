@@ -9,8 +9,9 @@ import { trackEvent } from '@/lib/gtm';
 const validRoutes = [
   { path: '/', name: 'Início' },
   { path: '/como-funciona', name: 'Como Funciona' },
-  { path: '/sobre', name: 'Sobre' },
   { path: '/recursos', name: 'Recursos' },
+  { path: '/sobre', name: 'Sobre' },
+  { path: '/ajuda', name: 'Ajuda' },
   { path: '/contato', name: 'Contato' },
 ];
 
