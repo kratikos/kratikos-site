@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function EmbedFaqPage() {
   return (
     <main className="py-8 min-h-screen bg-black text-white">
-      <Faq className="py-0" />
+      <Faq className="py-0" showContactCta={false} />
     </main>
   );
 }

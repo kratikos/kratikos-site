@@ -10,8 +10,9 @@ import { handleSmartDownloadClick } from '@/lib/deeplink';
 
 const footerLinks = {
   produto: [
-    { name: 'Recursos', path: '/recursos' },
     { name: 'Como Funciona', path: '/como-funciona' },
+    { name: 'Recursos', path: '/recursos' },
+    { name: 'Ajuda', path: '/ajuda' },
     { name: 'Download', path: '/#download' },
   ],
   empresa: [

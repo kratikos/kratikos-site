@@ -7,8 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      // Exemplo de como desabilitar pastas privadas caso existam no futuro:
-      // disallow: '/private/',
+      disallow: ['/embed/', '/api/', '/home', '/post', '/profile'],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
   }
