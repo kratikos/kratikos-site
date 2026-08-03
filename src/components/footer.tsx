@@ -22,7 +22,6 @@ const footerLinks = {
   legal: [
     { name: 'Termos de Uso', path: '/termos' },
     { name: 'Privacidade', path: '/privacidade' },
-    { name: 'Cookies', path: '/cookies' },
   ],
 };
 
