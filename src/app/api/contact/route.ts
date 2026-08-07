@@ -1,38 +1,43 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { type NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const SUBJECT_MAP: Record<string, string> = {
-  duvida: 'Dúvida',
-  sugestao: 'Sugestão',
-  parceria: 'Parceria',
-  imprensa: 'Imprensa',
-  outro: 'Outro',
+	duvida: "Dúvida",
+	sugestao: "Sugestão",
+	parceria: "Parceria",
+	imprensa: "Imprensa",
+	outro: "Outro",
 };
 
 export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { name, email, subject, message } = body || {};
+	try {
+		const body = await request.json();
+		const { name, email, subject, message } = body || {};
 
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { error: 'Todos os campos são obrigatórios (nome, email, assunto e mensagem).' },
-        { status: 400 }
-      );
-    }
+		if (!name || !email || !subject || !message) {
+			return NextResponse.json(
+				{
+					error:
+						"Todos os campos são obrigatórios (nome, email, assunto e mensagem).",
+				},
+				{ status: 400 },
+			);
+		}
 
-    const readableSubject = SUBJECT_MAP[subject] || subject;
-    const recipientEmail = process.env.CONTACT_EMAIL || 'contato@kratikos.com.br';
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Kratikos <onboarding@resend.dev>';
+		const readableSubject = SUBJECT_MAP[subject] || subject;
+		const recipientEmail =
+			process.env.CONTACT_EMAIL || "contato@kratikos.com.br";
+		const fromEmail =
+			process.env.RESEND_FROM_EMAIL || "Kratikos <onboarding@resend.dev>";
 
-    const emailResponse = await resend.emails.send({
-      from: fromEmail,
-      to: recipientEmail,
-      replyTo: `${name} <${email}>`,
-      subject: `[Contato Site] ${readableSubject} - ${name}`,
-      html: `
+		const emailResponse = await resend.emails.send({
+			from: fromEmail,
+			to: recipientEmail,
+			replyTo: `${name} <${email}>`,
+			subject: `[Contato Site] ${readableSubject} - ${name}`,
+			html: `
         <!DOCTYPE html>
         <html>
           <head>
@@ -72,21 +77,28 @@ export async function POST(request: NextRequest) {
           </body>
         </html>
       `,
-      text: `Nova mensagem de contato do site Kratikos:\n\nNome: ${name}\nEmail: ${email}\nAssunto: ${readableSubject}\n\nMensagem:\n${message}\n\nEnviado de https://kratikos.com.br/contato`,
-    });
+			text: `Nova mensagem de contato do site Kratikos:\n\nNome: ${name}\nEmail: ${email}\nAssunto: ${readableSubject}\n\nMensagem:\n${message}\n\nEnviado de https://kratikos.com.br/contato`,
+		});
 
-    if (emailResponse.error) {
-      console.error('Erro ao enviar email via Resend:', emailResponse.error);
-      return NextResponse.json(
-        { error: emailResponse.error.message || 'Falha ao enviar o email de contato.' },
-        { status: 500 }
-      );
-    }
+		if (emailResponse.error) {
+			console.error("Erro ao enviar email via Resend:", emailResponse.error);
+			return NextResponse.json(
+				{
+					error:
+						emailResponse.error.message ||
+						"Falha ao enviar o email de contato.",
+				},
+				{ status: 500 },
+			);
+		}
 
-    return NextResponse.json({ success: true, id: emailResponse.data?.id });
-  } catch (err: unknown) {
-    const errorMsg = err instanceof Error ? err.message : 'Erro interno do servidor ao processar contato.';
-    console.error('Exception no handler de contato:', err);
-    return NextResponse.json({ error: errorMsg }, { status: 500 });
-  }
+		return NextResponse.json({ success: true, id: emailResponse.data?.id });
+	} catch (err: unknown) {
+		const errorMsg =
+			err instanceof Error
+				? err.message
+				: "Erro interno do servidor ao processar contato.";
+		console.error("Exception no handler de contato:", err);
+		return NextResponse.json({ error: errorMsg }, { status: 500 });
+	}
 }
